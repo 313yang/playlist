@@ -10,6 +10,11 @@ export const PlaylistContainer = styled.main`
     font-size: 24px;
     font-weight: 700;
   }
+  > p {
+    margin: 5px auto;
+    width: 1140px;
+    font-size: 12px;
+  }
 `;
 export const TrackListsStyle = styled.ul`
   margin: 40px auto;

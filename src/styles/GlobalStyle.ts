@@ -71,7 +71,7 @@ input,select{
 	::placeholder{
 		color:${({ theme }) => theme.colors.gray}
 	}
-}a{
+}a,button{
 	text-decoration: none;
 	color:inherit
 }

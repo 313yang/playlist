@@ -14,7 +14,7 @@ export default function Navbar() {
           <Link href={"/mood"}>Mood</Link>
         </li>
         <li>
-          <Link href={"/genere"}>Genere</Link>
+          <Link href={"/genre"}>Genre</Link>
         </li>
       </ul>
     </NavStyle>

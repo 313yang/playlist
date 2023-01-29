@@ -90,10 +90,10 @@ export const searchPlaylistKeyword = async (keyword: string) => {
   ).data.playlists.items;
   const result = getPlaylist.map((ele) => {
     return {
-      name: ele.name,
+      title: ele.name,
       image: ele.images[0].url,
       id: ele.id,
-      owner: ele.owner.display_name,
+      sub: ele.owner.display_name,
     };
   });
 

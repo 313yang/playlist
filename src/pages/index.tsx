@@ -1,6 +1,6 @@
+import TrackListComponent from "@/components/TrackListComponent";
 import { getNewReleases } from "@/lib/spotify";
-import { PlaylistContainer, TrackListsStyle, TracList } from "@/styles/PlaylistStyle";
-import Image from "next/image";
+import { PlaylistContainer, TrackListsStyle } from "@/styles/PlaylistStyle";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 
 export default function Home({ dehydratedState }: { dehydratedState: () => IPlaylist[] }) {
@@ -14,11 +14,7 @@ export default function Home({ dehydratedState }: { dehydratedState: () => IPlay
       <h1>New Music</h1>
       <TrackListsStyle>
         {data?.map((list) => (
-          <TracList key={list.id}>
-            <Image width="180" height={"180"} src={list.image} alt={list.image} />
-            <h5>{list.title}</h5>
-            <h6>{list.sub}</h6>
-          </TracList>
+          <TrackListComponent track={list} key={list.id} />
         ))}
       </TrackListsStyle>
     </PlaylistContainer>
