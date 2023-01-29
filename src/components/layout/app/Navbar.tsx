@@ -8,9 +8,6 @@ export default function Navbar() {
       <input placeholder="search..." />
       <ul>
         <li>
-          <Link href={"/"}>New Music</Link>
-        </li>
-        <li>
           <Link href={"/mood"}>Mood</Link>
         </li>
         <li>

@@ -1,14 +1,10 @@
-import KeywordContainer from "@/components/KeywordContainer";
-import TrackListComponent from "@/components/TrackListComponent";
-import { searchPlaylistKeyword } from "@/lib/spotify";
-import { PlaylistContainer, TrackListsStyle } from "@/styles/PlaylistStyle";
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import PlaylistComponent from "@/components/PlaylistComponent";
 
-const keyword = [
+const keywords = [
   "pop",
   "jazz",
   "hip-hop",
-  "R&B",
+  "r&b",
   "rock",
   "k-pop",
   "j-pop",
@@ -20,29 +16,9 @@ const keyword = [
   "ost",
 ];
 
-export default function Genre({ dehydratedState }: { dehydratedState: () => IPlaylist[] }) {
-  const { data, isLoading, error } = useQuery("genre", () => dehydratedState());
-
-  if (isLoading) return <div>Loading</div>;
-  if (error) return "An error has occurred: " + error?.message;
-
-  return (
-    <PlaylistContainer>
-      <h1>Genre</h1>
-      <p>Playlists to match genre.</p>
-      <KeywordContainer keywords={keyword} />
-      <TrackListsStyle>
-        {data?.map((list) => (
-          <TrackListComponent track={list} key={list.id} />
-        ))}
-      </TrackListsStyle>
-    </PlaylistContainer>
-  );
-}
-
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery("genre", () => searchPlaylistKeyword(keyword[0]));
-
-  return { props: { dehydratedState: dehydrate(queryClient) } };
+export default function Genre() {
+  <PlaylistComponent
+    type={{ title: "Genre", sub: "Playlists to match genre." }}
+    keywords={keywords}
+  />;
 }

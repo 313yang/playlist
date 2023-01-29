@@ -1,33 +1,11 @@
-import KeywordContainer from "@/components/KeywordContainer";
-import TrackListComponent from "@/components/TrackListComponent";
-import { searchPlaylistKeyword } from "@/lib/spotify";
-import { PlaylistContainer, TrackListsStyle } from "@/styles/PlaylistStyle";
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import PlaylistComponent from "@/components/PlaylistComponent";
 
-const keyword = ["coding", "study", "night", "drive", "fitness", "morning", "rainning", "bathtub"];
-export default function Mood({ dehydratedState }: { dehydratedState: () => IPlaylist[] }) {
-  const { data, isLoading, error } = useQuery("mood", () => dehydratedState());
-
-  if (isLoading) return <div>Loading</div>;
-  if (error) return "An error has occurred: " + error?.message;
-
+const keywords = ["coding", "study", "night", "drive", "fitness", "morning", "rainning", "bathtub"];
+export default function Mood() {
   return (
-    <PlaylistContainer>
-      <h1>Mood</h1>
-      <p>Playlists to match your mood.</p>
-      <KeywordContainer keywords={keyword} />
-      <TrackListsStyle>
-        {data?.map((list) => (
-          <TrackListComponent track={list} key={list.id} />
-        ))}
-      </TrackListsStyle>
-    </PlaylistContainer>
+    <PlaylistComponent
+      type={{ title: "Mood", sub: "Playlists to match your mood." }}
+      keywords={keywords}
+    />
   );
-}
-
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery("mood", () => searchPlaylistKeyword(keyword[0]));
-
-  return { props: { dehydratedState: dehydrate(queryClient) } };
 }

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { contentWidth } from "./GlobalStyle";
 
 export const PlaylistContainer = styled.main`
   display: flex;
@@ -6,22 +7,22 @@ export const PlaylistContainer = styled.main`
   margin-left: 220px;
   > h1 {
     margin: 0 auto;
-    width: 1140px;
     font-size: 24px;
     font-weight: 700;
+    ${contentWidth};
   }
   > p {
     margin: 5px auto;
-    width: 1140px;
+    ${contentWidth};
     font-size: 12px;
   }
 `;
 export const TrackListsStyle = styled.ul`
   margin: 40px auto;
-  width: 1140px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 12px;
+  gap: 40px 12px;
+  ${contentWidth};
 `;
 export const TracList = styled.li`
   display: flex;
@@ -33,7 +34,12 @@ export const TracList = styled.li`
   }
   > h5 {
     font-size: 14px;
-    margin: 5px 0;
+    margin: 10px 0 5px;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-bottom: 1px;
   }
   > h6 {
     font-size: 12px;
