@@ -1,3 +1,4 @@
+import { msToMinutesAndSeconds } from "@/util/common/durationTime";
 import axios from "axios";
 
 const API_URL = "https://api.spotify.com/v1/";
@@ -41,39 +42,20 @@ export const getAccessToken = async () => {
 export const searchTrackById = async (id: string) => {
   const token = await getAccessToken();
 
-  let { total } = (
-    await axios.get(`${API_URL}playlists/${id}/tracks?limit=100`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).data;
-  let totalSongs = [];
-  for (let i = 0; i < total / 100; i++) {
-    let getSongs = (
-      await axios.get(`${API_URL}playlists/${id}/tracks?offset=${i * 100}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-    ).data.items;
-    let songs = await Promise.all(
-      getSongs.map(async (ele) => {
-        const { track } = ele;
-        track && track.album.images.length !== 0
-          ? totalSongs.push({
-              title: track.name,
-              album: {
-                title: track.album.name,
-                image: track.album.images[0].url,
-              },
-              artists: track.artists[0].name,
-              // id : (await findVideo(`${track.artists[0].name} ${track.name}audio`))
-            })
-          : false;
-      })
-    );
-  }
+  const { data } = await axios.get(`${API_URL}playlists/${id}/tracks?limit=100`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  let totalSongs = data.items.map(({ track }) => ({
+    title: track.name,
+    id: track.id,
+    image: track.album.images[0].url,
+    sub: track.artists.map((artist: { name: string }) => artist.name).join(","),
+    time: msToMinutesAndSeconds(track.duration_ms),
+  }));
+
   return totalSongs;
 };
 
@@ -87,14 +69,13 @@ export const searchPlaylistKeyword = async (keyword: string) => {
       },
     })
   ).data.playlists.items;
-  const result = getPlaylist.map((ele) => {
-    return {
-      title: ele.name,
-      image: ele.images[0].url,
-      id: ele.id,
-      sub: ele.owner.display_name,
-    };
-  });
+  const result = getPlaylist.map((track) => ({
+    title: track.name,
+    image: track.images[0].url,
+    id: track.id,
+    artist: track.owner.display_name,
+    album: track.album.name,
+  }));
 
   return result;
 };

@@ -24,9 +24,10 @@ export const TrackListsStyle = styled.ul`
   gap: 40px 12px;
   ${contentWidth};
 `;
-export const TracList = styled.li`
+export const TrackStyle = styled.li`
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   > img {
     width: 200px;
     height: 200px;
@@ -44,5 +45,22 @@ export const TracList = styled.li`
   > h6 {
     font-size: 12px;
     opacity: 0.4;
+  }
+  > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 4px;
+    opacity: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.2s ease;
+  }
+  &:hover {
+    > div {
+      opacity: 1;
+    }
   }
 `;

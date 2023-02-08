@@ -17,8 +17,10 @@ const keywords = [
 ];
 
 export default function Genre() {
-  <PlaylistComponent
-    type={{ title: "Genre", sub: "Playlists to match genre." }}
-    keywords={keywords}
-  />;
+  return (
+    <PlaylistComponent
+      type={{ title: "Genre", sub: "Playlists to match genre." }}
+      keywords={keywords}
+    />
+  );
 }

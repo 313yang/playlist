@@ -1,6 +1,4 @@
-import { createGlobalStyle } from "styled-components";
-import css from "styled-jsx/css";
-
+import { createGlobalStyle, css } from "styled-components";
 export const contentWidth = css`
   width: 1260px;
 `;
