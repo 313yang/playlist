@@ -1,11 +1,15 @@
 import { TrackStyle } from "@/styles/PlaylistStyle";
+import { useSelectPlaylist } from "@/util/store/useStore";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
 export default function TrackListComponent({ track }: { track: IPlaylist }) {
   const router = useRouter();
+  const { setPlaylist } = useSelectPlaylist();
   const handleSelectPlaylist = () => {
     router.push(`/playlist/${track.id}`);
+    // sessionStorage.setItem("track", JSON.stringify(track));
+    setPlaylist(track);
   };
   return (
     <TrackStyle onClick={handleSelectPlaylist}>

@@ -52,8 +52,9 @@ export const searchTrackById = async (id: string) => {
     title: track.name,
     id: track.id,
     image: track.album.images[0].url,
-    sub: track.artists.map((artist: { name: string }) => artist.name).join(","),
+    artist: track.artists.map((artist: { name: string }) => artist.name).join(","),
     time: msToMinutesAndSeconds(track.duration_ms),
+    album: track.album.name,
   }));
 
   return totalSongs;
@@ -73,8 +74,7 @@ export const searchPlaylistKeyword = async (keyword: string) => {
     title: track.name,
     image: track.images[0].url,
     id: track.id,
-    artist: track.owner.display_name,
-    album: track.album.name,
+    sub: track.owner.display_name,
   }));
 
   return result;
