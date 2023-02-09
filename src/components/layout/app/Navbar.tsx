@@ -22,19 +22,19 @@ const NavStyle = styled.nav`
   width: 220px;
   height: 100vh;
   border-right: 1px solid #525252;
-  background-color: rgba(37, 37, 38, 1);
+  background-color: ${({ theme }) => theme.colors.darkGray};
   padding: 18px;
   position: fixed;
   top: 0;
   left: 0;
   > p {
     font-size: 24px;
-    font-weight: 800;
-    margin-bottom: 24px;
+    font-weight: 600;
+    margin-bottom: 22px;
   }
   > input {
     width: 100%;
-    background: #1f1f1f;
+    background: ${({ theme }) => theme.colors.bgColor};
     border: 1px solid #3b3b3c;
     border-radius: 4px;
     padding: 5px 8px;

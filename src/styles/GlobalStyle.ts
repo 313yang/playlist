@@ -1,6 +1,7 @@
 import { createGlobalStyle, css } from "styled-components";
 export const contentWidth = css`
   width: 1260px;
+  margin: 0 auto;
 `;
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -33,7 +34,7 @@ body {
 	line-height: 1;
     font-family: 'Montserrat';
 	font-size: 16px;
-	background-color: #1F1F1F;
+	background-color: ${({ theme }) => theme.colors.bgColor};
 	color: #fff;
 }
 button{

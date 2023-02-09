@@ -1,35 +1,39 @@
 import Spinner from "@/components/common/Spinner";
+import TrackTable from "@/components/TrackTable";
 import { searchTrackById } from "@/lib/spotify";
+import { FlatButton } from "@/styles/common/ButtonStyle";
+import { CurrentTrackContainer } from "@/styles/CurrentTrack";
 import { PlaylistContainer } from "@/styles/PlaylistStyle";
 import { useSelectPlaylist } from "@/util/store/useStore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import { QueryClient, useQuery } from "react-query";
 
 export default function Playlist({ id }: { id: string }) {
   const { data, isLoading, error } = useQuery(["playlist", id], () => searchTrackById(id));
-  const [currentTrack, setCurrentTrack] = useState(0);
   const { playlist } = useSelectPlaylist();
 
   console.log(playlist);
 
   return (
     <PlaylistContainer>
-      {isLoading ? (
-        <Spinner />
-      ) : (
+      <CurrentTrackContainer>
+        <Image
+          src={playlist?.image || ""}
+          alt={playlist?.title || ""}
+          width={"300"}
+          height={"300"}
+        />
         <div>
+          <h1>{playlist?.title}</h1>
+          <h2>{playlist?.sub}</h2>
           <div>
-            <Image src={playlist.image} alt={playlist.title} width="200" height={"200"} />
+            <FlatButton>Play</FlatButton>
+            <FlatButton>Random</FlatButton>
           </div>
-          <Image
-            src={data[currentTrack]?.image}
-            alt={data[currentTrack]?.title}
-            width="50"
-            height={"50"}
-          />
         </div>
-      )}
+      </CurrentTrackContainer>
+      {isLoading ? <Spinner /> : <TrackTable playlist={data} />}
     </PlaylistContainer>
   );
 }
