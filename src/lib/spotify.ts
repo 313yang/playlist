@@ -1,8 +1,6 @@
 import { msToMinutesAndSeconds } from "@/util/common/durationTime";
 import axios from "axios";
 
-const API_URL = "https://api.spotify.com/v1/";
-
 export const getAccessToken = async () => {
   const { data } = await axios.post(
     "/api/token",
@@ -42,7 +40,7 @@ export const getAccessToken = async () => {
 export const searchTrackById = async (id: string) => {
   const token = await getAccessToken();
 
-  const { data } = await axios.get(`${API_URL}playlists/${id}/tracks?limit=100`, {
+  const { data } = await axios.get(`api/track/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
