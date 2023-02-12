@@ -1,9 +1,9 @@
-import { createGlobalStyle } from "styled-components";
-
+import { createGlobalStyle, css } from "styled-components";
+export const contentWidth = css`
+  width: 1260px;
+  margin: 0 auto;
+`;
 const GlobalStyle = createGlobalStyle`
-
-
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -16,7 +16,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video,input {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -24,8 +24,6 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 	box-sizing: border-box;
-	
-	/* color: ${({ theme }) => theme.colors.black}; */
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -34,8 +32,10 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-    font-family: 'Pretendard';
+    font-family: 'Montserrat';
 	font-size: 16px;
+	background-color: ${({ theme }) => theme.colors.bgColor};
+	color: #fff;
 }
 button{
 	border:none;
@@ -64,14 +64,16 @@ input,select{
 	margin: 0;
 	font-family: inherit;
 	font-size: inherit;
+	color: inherit;
 	:focus,:active{
 		outline: none;
 	}
 	::placeholder{
 		color:${({ theme }) => theme.colors.gray}
 	}
-}a{
+}a,button{
 	text-decoration: none;
+	color:inherit
 }
 
 @media screen and (max-width:480px){

@@ -1,13 +1,10 @@
 const colors = {
-  bgColor: "#F2F2F2",
-  black: "#222",
-  white: "#FFFFFF",
+  bgColor: "#1f1f1f",
+
   lightGray: "#e1e1e1",
   gray: "#d9d9d9",
-  darkGray: "#595959",
-  main: "#6c60f4",
-  secondary: "#586680",
-  red: "#C50000",
+  darkGray: "#232323",
+  main: "#fa586a",
 };
 
 const device = {
