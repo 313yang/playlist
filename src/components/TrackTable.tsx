@@ -1,11 +1,16 @@
-import { findVideo } from "@/lib/youtube";
 import { TableStyle } from "@/styles/common/TableStyle";
+import { useGetYoutubeId } from "@/util/hooks/useGetYoutubeId";
+import { useSetTrack } from "@/util/store/useStore";
 import Image from "next/image";
-import { useMutation } from "react-query";
 
 export default function TrackTable({ playlist }: { playlist: ITrack[] }) {
-  const { mutate, isLoading, data } = useMutation(findVideo);
-  console.log(data);
+  const { setTrackNum } = useSetTrack();
+  const { refetch } = useGetYoutubeId();
+
+  const handleSetTrack = (index: number) => {
+    refetch();
+    setTrackNum(index);
+  };
   return (
     <TableStyle>
       <thead>
@@ -17,13 +22,8 @@ export default function TrackTable({ playlist }: { playlist: ITrack[] }) {
         </tr>
       </thead>
       <tbody>
-        {playlist.map((track) => (
-          <tr
-            key={track.id}
-            onClick={() => {
-              mutate({ title: track.title, artist: track.artist });
-            }}
-          >
+        {playlist.map((track, index) => (
+          <tr key={track.id} onClick={() => handleSetTrack(index)}>
             <td>
               <Image width={"40"} height={"40"} src={track.image} alt={track.time} />
               <p>{track.title}</p>
@@ -33,12 +33,6 @@ export default function TrackTable({ playlist }: { playlist: ITrack[] }) {
             <td>{track.time}</td>
           </tr>
         ))}
-        <iframe
-          width="10"
-          height="10"
-          src={`https://www.youtube.com/embed/${data}?autoplay=1&rel=0`}
-          allow="autoplay"
-        />
       </tbody>
     </TableStyle>
   );

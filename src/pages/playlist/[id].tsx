@@ -4,7 +4,7 @@ import { searchTrackById } from "@/lib/spotify";
 import { FlatButton } from "@/styles/common/ButtonStyle";
 import { CurrentTrackContainer } from "@/styles/CurrentTrack";
 import { PlaylistContainer } from "@/styles/PlaylistStyle";
-import { useSelectPlaylist } from "@/util/store/useStore";
+import { useSelectPlaylist, useSetTrack } from "@/util/store/useStore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { QueryClient, useQuery } from "react-query";
@@ -12,8 +12,11 @@ import { QueryClient, useQuery } from "react-query";
 export default function Playlist({ id }: { id: string }) {
   const { data, isLoading, error } = useQuery(["playlist", id], () => searchTrackById(id));
   const { playlist } = useSelectPlaylist();
+  const { setTracks } = useSetTrack();
 
-  console.log(playlist);
+  useEffect(() => {
+    !!data && setTracks(data);
+  }, [data]);
 
   return (
     <PlaylistContainer>

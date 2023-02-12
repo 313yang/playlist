@@ -8,6 +8,7 @@ const nextConfig = {
       "thisis-images.scdn.co",
       "seed-mix-image.spotifycdn.com",
       "mosaic.scdn.co",
+      "seeded-session-images.scdn.co",
     ],
   },
   async redirects() {
