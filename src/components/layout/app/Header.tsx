@@ -8,12 +8,12 @@ import PlayerButtons from "@/components/common/PlayerButtons";
 import PlayerTrack from "@/components/common/PlayerTrack";
 
 export default function Header() {
-  const { handleNextTrack, track } = useSetTrack();
+  const { handleNextTrack } = useSetTrack();
   const [progress, setProgress] = useState(0);
   const { data } = useGetYoutubeId();
   const [volumn, setVolumn] = useState(100);
   const [play, setPlay] = useState(false);
-  const videoRef = useRef();
+  const videoRef = useRef(null);
   useEffect(() => {
     if (data) setPlay(true);
   }, [data]);

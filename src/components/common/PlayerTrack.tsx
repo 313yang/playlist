@@ -1,8 +1,14 @@
 import { useSetTrack } from "@/util/store/useStore";
 import Image from "next/image";
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
 import styled from "styled-components";
 
-export default function PlayerTrack({ progress, setProgress, videoRef }) {
+interface Props {
+  progress: number;
+  setProgress: Dispatch<SetStateAction<number>>;
+  videoRef: any;
+}
+export default function PlayerTrack({ progress, setProgress, videoRef }: Props) {
   const { track } = useSetTrack();
 
   return (
@@ -17,11 +23,11 @@ export default function PlayerTrack({ progress, setProgress, videoRef }) {
               type="range"
               min={0}
               max={1}
-              step={0.001}
+              step={0.000001}
               value={progress}
               onChange={(e) => {
                 setProgress(+e.target.value);
-                videoRef.current.seekTo(+e.target.value);
+                videoRef?.current.seekTo(+e.target.value);
               }}
             />
           </div>
