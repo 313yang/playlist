@@ -6,8 +6,9 @@ import { CurrentTrackContainer } from "@/styles/CurrentTrack";
 import { PlaylistContainer } from "@/styles/PlaylistStyle";
 import { useSelectPlaylist, useSetTrack } from "@/util/store/useStore";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { QueryClient, useQuery } from "react-query";
+import { IoPlay, IoShuffle } from "react-icons/io5";
+import { useEffect } from "react";
+import { useQuery } from "react-query";
 
 export default function Playlist({ id }: { id: string }) {
   const { data, isLoading, error } = useQuery(["playlist", id], () => searchTrackById(id));
@@ -31,8 +32,13 @@ export default function Playlist({ id }: { id: string }) {
           <h1>{playlist?.title}</h1>
           <h2>{playlist?.sub}</h2>
           <div>
-            <FlatButton>Play</FlatButton>
-            <FlatButton>Random</FlatButton>
+            <FlatButton>
+              <IoPlay /> Play
+            </FlatButton>
+            <FlatButton>
+              <IoShuffle />
+              Random
+            </FlatButton>
           </div>
         </div>
       </CurrentTrackContainer>

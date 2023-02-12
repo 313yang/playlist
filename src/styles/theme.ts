@@ -1,7 +1,6 @@
 const colors = {
   bgColor: "#1f1f1f",
-  black: "#222",
-  white: "#FFFFFF",
+
   lightGray: "#e1e1e1",
   gray: "#d9d9d9",
   darkGray: "#232323",

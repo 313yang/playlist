@@ -10,4 +10,7 @@ export const FlatButton = styled.button.attrs({ type: "button" })`
   font-size: 13px;
   font-weight: 600;
   border-radius: 4px;
+  > svg {
+    margin-right: 4px;
+  }
 `;
