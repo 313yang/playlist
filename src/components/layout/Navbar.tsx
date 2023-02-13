@@ -42,6 +42,7 @@ const NavStyle = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 2;
   > h1 {
     font-size: 24px;
     font-weight: 600;

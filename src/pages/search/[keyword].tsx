@@ -8,11 +8,6 @@ import TrackListComponent from "@/components/TrackListComponent";
 
 export default function SearchKeyword({ keyword }: { keyword: string }) {
   const { data, isLoading, error } = useQuery([keyword], () => searchPlaylistKeyword(keyword));
-  const { setTracks } = useSetTrack();
-
-  useEffect(() => {
-    !!data && setTracks(data);
-  }, [data]);
 
   return (
     <PlaylistContainer>

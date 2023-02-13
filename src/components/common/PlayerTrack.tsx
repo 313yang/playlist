@@ -1,3 +1,4 @@
+import { textHidden } from "@/styles/GlobalStyle";
 import { useGetYoutubeId } from "@/util/hooks/useGetYoutubeId";
 import { usePlayerState, useSetTrack } from "@/util/store/useStore";
 import Image from "next/image";
@@ -78,6 +79,9 @@ const PlayerTrackWrap = styled.div`
       > h6 {
         font-size: 12px;
         font-weight: 500;
+        text-align: center;
+        width: 350px;
+        ${textHidden}
         :nth-child(2) {
           margin-bottom: 2px;
           opacity: 0.6;

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { IoPause, IoPlay, IoPlayBack, IoPlayForward, IoRepeat, IoShuffle } from "react-icons/io5";
 
 export default function PlayerButtons() {
-  const { handleNextTrack, handlePrevTrack } = useSetTrack();
+  const { handleNextTrack, handlePrevTrack, track } = useSetTrack();
   const { play, setPlay } = usePlayerState();
 
   return (
@@ -15,7 +15,7 @@ export default function PlayerButtons() {
         <IoPlayBack />
       </button>
       <button type="button" onClick={() => setPlay(!play)}>
-        {play ? <IoPause /> : <IoPlay />}
+        {play && track ? <IoPause /> : <IoPlay />}
       </button>
       <button type="button" onClick={handleNextTrack}>
         <IoPlayForward />

@@ -12,6 +12,7 @@ interface IUseSetTrack {
   track: Nullable<ITrack>;
   trackNum: Nullable<number>;
   setTracks: (tracklist: ITrack[]) => void;
+  setRandomTracks: (lsit: ITrack[]) => void;
   setTrackNum: (track: number) => void;
   handleNextTrack: () => void;
   handlePrevTrack: () => void;
@@ -38,10 +39,16 @@ export const useSetTrack = create<IUseSetTrack>()(
   persist(
     (set) => ({
       tracks: [],
-      setTracks: (tracklist: ITrack[]) => {
+      setTracks: (list: ITrack[]) => {
         set((state: any) => ({
           ...state,
-          tracks: tracklist,
+          tracks: list,
+        }));
+      },
+      setRandomTracks: (list: ITrack[]) => {
+        set((state: any) => ({
+          ...state,
+          tracks: list.sort(() => Math.random() - 0.5),
         }));
       },
       track: null,
@@ -110,3 +117,16 @@ export const usePlayerState = create<IUsePlayerState>()(
     { name: "player" }
   )
 );
+interface IUseSidebarToggle {
+  isOpen: boolean;
+  setIsOpen: () => void;
+}
+export const useSidebarToggle = create<IUseSidebarToggle>((set) => ({
+  isOpen: false,
+  setIsOpen: () => {
+    set((state) => ({
+      ...state,
+      isOpen: !state.isOpen,
+    }));
+  },
+}));
