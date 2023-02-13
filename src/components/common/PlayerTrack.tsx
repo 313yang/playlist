@@ -1,15 +1,20 @@
-import { useSetTrack } from "@/util/store/useStore";
+import { usePlayerState, useSetTrack } from "@/util/store/useStore";
 import Image from "next/image";
 import { Dispatch, MutableRefObject, SetStateAction } from "react";
 import styled from "styled-components";
+import InputRange from "./InputRange";
 
 interface Props {
-  progress: number;
-  setProgress: Dispatch<SetStateAction<number>>;
   videoRef: any;
 }
-export default function PlayerTrack({ progress, setProgress, videoRef }: Props) {
+export default function PlayerTrack({ videoRef }: Props) {
   const { track } = useSetTrack();
+  const { progress, setProgress } = usePlayerState();
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProgress(+e.target.value);
+    videoRef?.current.seekTo(+e.target.value);
+  };
 
   return (
     <PlayerTrackWrap>
@@ -19,16 +24,12 @@ export default function PlayerTrack({ progress, setProgress, videoRef }: Props) 
           <div>
             <p>{track.title}</p>
             <p>{track.artist}</p>
-            <input
-              type="range"
+            <InputRange
               min={0}
               max={1}
               step={0.000001}
               value={progress}
-              onChange={(e) => {
-                setProgress(+e.target.value);
-                videoRef?.current.seekTo(+e.target.value);
-              }}
+              handleOnChange={handleOnChange}
             />
           </div>
         </div>

@@ -71,3 +71,32 @@ export const useSetTrack = create<IUseSetTrack>()(
     { name: "track" }
   )
 );
+
+interface IUsePlayerState {
+  volume: number;
+  progress: number;
+  setVolume: (val: number) => void;
+  setProgress: (val: number) => void;
+}
+export const usePlayerState = create<IUsePlayerState>()(
+  persist(
+    (set) => ({
+      volume: 1,
+      progress: 0,
+      setVolume: (val: number) => {
+        set((state: any) => ({
+          ...state,
+          volume: val,
+        }));
+      },
+
+      setProgress: (val: number) => {
+        set((state: any) => ({
+          ...state,
+          progress: val,
+        }));
+      },
+    }),
+    { name: "player" }
+  )
+);

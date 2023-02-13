@@ -1,19 +1,21 @@
 import { contentWidth } from "@/styles/GlobalStyle";
-import { useSetTrack } from "@/util/store/useStore";
+import { usePlayerState, useSetTrack } from "@/util/store/useStore";
 import styled from "styled-components";
 import { useGetYoutubeId } from "@/util/hooks/useGetYoutubeId";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import PlayerButtons from "@/components/common/PlayerButtons";
 import PlayerTrack from "@/components/common/PlayerTrack";
+import PlayerVolume from "@/components/common/PlayerVolume";
 
 export default function Header() {
   const { handleNextTrack } = useSetTrack();
-  const [progress, setProgress] = useState(0);
+  const { setProgress } = usePlayerState();
   const { data } = useGetYoutubeId();
   const [volumn, setVolumn] = useState(100);
   const [play, setPlay] = useState(false);
   const videoRef = useRef(null);
+
   useEffect(() => {
     if (data) setPlay(true);
   }, [data]);
@@ -21,17 +23,8 @@ export default function Header() {
   return (
     <HeaderStyle>
       <PlayerButtons setPlay={setPlay} play={play} />
-      <PlayerTrack progress={progress} setProgress={setProgress} videoRef={videoRef} />
-      <div>
-        <input
-          type="range"
-          min={0}
-          max={1}
-          step={0.1}
-          value={volumn}
-          onChange={(e) => setVolumn(+e.target.value)}
-        />
-      </div>
+      <PlayerTrack videoRef={videoRef} />
+      <PlayerVolume />
 
       {!!data && (
         <ReactPlayer

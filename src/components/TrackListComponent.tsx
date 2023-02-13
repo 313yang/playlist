@@ -7,8 +7,7 @@ export default function TrackListComponent({ track }: { track: IPlaylist }) {
   const router = useRouter();
   const { setPlaylist } = useSelectPlaylist();
   const handleSelectPlaylist = () => {
-    router.push(`/playlist/${track.id}`);
-    // sessionStorage.setItem("track", JSON.stringify(track));
+    router.push(`/${track.id}`);
     setPlaylist(track);
   };
   return (

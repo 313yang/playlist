@@ -1,5 +1,4 @@
 import TrackListComponent from "@/components/TrackListComponent";
-import { getNewReleases } from "@/lib/spotify";
 import { PlaylistContainer, TrackListsStyle } from "@/styles/PlaylistStyle";
 import { dehydrate, QueryClient, useQuery } from "react-query";
 
