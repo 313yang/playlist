@@ -5,15 +5,22 @@ interface Props {
   step: number;
   value: number;
   handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  styles?: any;
 }
-export default function InputRange({ min, max, step, value, handleOnChange }: Props) {
+export default function InputRange({ min, max, step, value, handleOnChange, styles }: Props) {
   return (
-    <StyleInputRange min={min} max={max} step={step} value={value} onChange={handleOnChange} />
+    <StyleInputRange
+      style={styles}
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      onChange={handleOnChange}
+    />
   );
 }
 const StyleInputRange = styled.input.attrs({ type: "range" })`
   -webkit-appearance: none;
-  overflow: hidden;
   width: 100%;
   height: 3px;
   background: transparent;
@@ -28,8 +35,15 @@ const StyleInputRange = styled.input.attrs({ type: "range" })`
     width: 3px;
     height: 3px;
     background: #b8b8b8;
-    box-shadow: -100vw 0 0 100vw #b8b8b8;
     border: 0.1px solid #b8b8b8;
+    cursor: pointer;
+  }
+  &::-moz-range-thumb {
+    -webkit-appearance: none;
+    width: 3px;
+    height: 3px;
+    background: #b8b8b8;
+    border: 1px solid dodgerblue;
     cursor: pointer;
   }
 `;
