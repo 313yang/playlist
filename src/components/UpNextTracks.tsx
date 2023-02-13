@@ -5,9 +5,14 @@ import { IoPlay } from "react-icons/io5";
 import styled from "styled-components";
 
 export default function UpNextTracks({ track, index }: { track: ITrack; index: number }) {
-  const { setTrackNum, trackNum } = useSetTrack();
+  const { setTrackNum, track: currentTrack } = useSetTrack();
   return (
-    <TrackListStyle currentTrack={index === trackNum} onClick={() => setTrackNum(index)}>
+    <TrackListStyle
+      currentTrack={
+        !!currentTrack && currentTrack.id === track.id && currentTrack.sort === track.sort
+      }
+      onClick={() => setTrackNum(index)}
+    >
       <div className="currentTrack">
         <IoPlay />
       </div>

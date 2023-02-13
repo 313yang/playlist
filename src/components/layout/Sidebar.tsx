@@ -4,13 +4,18 @@ import UpNextTracks from "../UpNextTracks";
 
 export default function Sidebar() {
   const { isOpen } = useSidebarToggle();
-  const { tracks } = useSetTrack();
+  const { tracks, setTracks } = useSetTrack();
   return (
     <SidebarStyle isOpen={isOpen}>
-      <h3>Up Next</h3>
+      <div>
+        <h3>Up Next</h3>
+        <button type="button" onClick={() => setTracks([])}>
+          <h4>Clear</h4>
+        </button>
+      </div>
       <ul>
         {tracks.map((track, index) => (
-          <UpNextTracks track={track} index={index} key={track.id} />
+          <UpNextTracks track={track} index={index} key={track.id + track.sort} />
         ))}
       </ul>
     </SidebarStyle>
@@ -29,14 +34,22 @@ const SidebarStyle = styled.aside<{ isOpen: boolean }>`
   right: ${({ isOpen }) => (isOpen ? 0 : "-300px")};
   overflow: auto;
   padding: 0 20px;
-  > h3 {
+  > div {
     position: fixed;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 240px;
     background-color: #282828f0;
     padding: 23px 0 10px;
-    font-size: 18px;
-    font-weight: 700;
     z-index: 1;
+    h3 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    h4 {
+      color: ${({ theme }) => theme.colors.main};
+    }
   }
   > ul {
     padding: 5px 0;

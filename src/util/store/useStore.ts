@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { shuffleArray } from "../common/shuffleArray";
 
 type Nullable<T> = T | null;
 
@@ -48,7 +49,7 @@ export const useSetTrack = create<IUseSetTrack>()(
       setRandomTracks: (list: ITrack[]) => {
         set((state: any) => ({
           ...state,
-          tracks: list.sort(() => Math.random() - 0.5),
+          tracks: shuffleArray(list),
         }));
       },
       track: null,
