@@ -4,17 +4,14 @@ export default function Spinner() {
   return (
     <div style={{ position: "absolute", width: "100vw", height: "100vh", top: 0, left: 0 }}>
       <SpinnerStyle>
-        <div className="bar1"></div>
-        <div className="bar2"></div>
-        <div className="bar3"></div>
-        <div className="bar4"></div>
-        <div className="bar5"></div>
-        <div className="bar6"></div>
-        <div className="bar7"></div>
-        <div className="bar8"></div>
-        {/*
-        <div className="bar9"></div>
-        <div className="bar10"></div> */}
+        <div className="bar1" />
+        <div className="bar2" />
+        <div className="bar3" />
+        <div className="bar4" />
+        <div className="bar5" />
+        <div className="bar6" />
+        <div className="bar7" />
+        <div className="bar8" />
       </SpinnerStyle>
     </div>
   );

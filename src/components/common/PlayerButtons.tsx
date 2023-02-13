@@ -1,23 +1,26 @@
-import { useSetTrack } from "@/util/store/useStore";
+import { usePlayerState, useSetTrack } from "@/util/store/useStore";
 import styled from "styled-components";
 import { IoPause, IoPlay, IoPlayBack, IoPlayForward, IoRepeat, IoShuffle } from "react-icons/io5";
 
-export default function PlayerButtons({ play, setPlay }: { play: boolean; setPlay: any }) {
-  const { handleNextTrack, handlePrevTrack } = useSetTrack();
+export default function PlayerButtons() {
+  const { handleNextTrack, handlePrevTrack, track } = useSetTrack();
+  const { play, setPlay } = usePlayerState();
 
   return (
     <Buttons>
-      <button>
+      <button type="button" onClick={handlePrevTrack}>
         <IoShuffle />
       </button>
-      <button onClick={handlePrevTrack}>
+      <button type="button" onClick={handlePrevTrack}>
         <IoPlayBack />
       </button>
-      <button onClick={() => setPlay(!play)}>{play ? <IoPause /> : <IoPlay />}</button>
-      <button onClick={handleNextTrack}>
+      <button type="button" onClick={() => setPlay(!play)}>
+        {play && track ? <IoPause /> : <IoPlay />}
+      </button>
+      <button type="button" onClick={handleNextTrack}>
         <IoPlayForward />
       </button>
-      <button>
+      <button type="button" onClick={handlePrevTrack}>
         <IoRepeat />
       </button>
     </Buttons>

@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "@/components/layout/app/Header";
-import Navbar from "@/components/layout/app/Navbar";
+import Header from "@/components/layout/Header";
+import Navbar from "@/components/layout/Navbar";
 import GlobalStyle from "@/styles/GlobalStyle";
 import type { AppProps } from "next/app";
 import Head from "next/head";
@@ -8,6 +8,7 @@ import { ThemeProvider } from "styled-components";
 import theme from "../styles/theme";
 import { QueryClient, Hydrate, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import Sidebar from "@/components/layout/Sidebar";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = React.useState(
@@ -35,6 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </Head>
           <Header />
           <Navbar />
+          <Sidebar />
           <Component {...pageProps} />
           <ReactQueryDevtools />
         </ThemeProvider>

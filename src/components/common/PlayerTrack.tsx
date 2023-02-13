@@ -1,9 +1,23 @@
-import { useSetTrack } from "@/util/store/useStore";
+import { textHidden } from "@/styles/GlobalStyle";
+import { useGetYoutubeId } from "@/util/hooks/useGetYoutubeId";
+import { usePlayerState, useSetTrack } from "@/util/store/useStore";
 import Image from "next/image";
+import { useRef } from "react";
+import ReactPlayer from "react-player";
 import styled from "styled-components";
+import InputRange from "./InputRange";
 
-export default function PlayerTrack({ progress, setProgress, videoRef }) {
+export default function PlayerTrack() {
   const { track } = useSetTrack();
+  const { handleNextTrack } = useSetTrack();
+  const { progress, setProgress, volume, play, setPlay } = usePlayerState();
+  const { data } = useGetYoutubeId();
+  const videoRef = useRef<any>(null);
+
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setProgress(+e.target.value);
+    videoRef.current.seekTo(+e.target.value);
+  };
 
   return (
     <PlayerTrackWrap>
@@ -11,23 +25,36 @@ export default function PlayerTrack({ progress, setProgress, videoRef }) {
         <div>
           <Image width={"40"} height={"40"} src={track.image} alt={track.time} />
           <div>
-            <p>{track.title}</p>
-            <p>{track.artist}</p>
-            <input
-              type="range"
+            <h6>{track.title}</h6>
+            <h6>{track.artist}</h6>
+            <InputRange
               min={0}
               max={1}
-              step={0.001}
+              step={0.000001}
               value={progress}
-              onChange={(e) => {
-                setProgress(+e.target.value);
-                videoRef.current.seekTo(+e.target.value);
-              }}
+              handleOnChange={handleOnChange}
             />
           </div>
+
+          <ReactPlayer
+            ref={videoRef}
+            url={`https://youtu.be/${data}`}
+            width="0"
+            height="0"
+            volume={volume}
+            playing={play}
+            onReady={() => setPlay(true)}
+            onEnded={handleNextTrack}
+            onProgress={(e) => setProgress(e.played)}
+          />
         </div>
       ) : (
-        <div></div>
+        <div>
+          <div style={{ backgroundColor: "#ddd", width: 40, height: 40 }} />
+          <div>
+            <p>Not played</p>
+          </div>
+        </div>
       )}
     </PlayerTrackWrap>
   );
@@ -49,9 +76,12 @@ const PlayerTrackWrap = styled.div`
       align-items: center;
       justify-content: space-between;
       padding-top: 5px;
-      > p {
+      > h6 {
         font-size: 12px;
         font-weight: 500;
+        text-align: center;
+        width: 350px;
+        ${textHidden}
         :nth-child(2) {
           margin-bottom: 2px;
           opacity: 0.6;

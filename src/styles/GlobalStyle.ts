@@ -3,6 +3,27 @@ export const contentWidth = css`
   width: 1260px;
   margin: 0 auto;
 `;
+export const textHidden = css`
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`;
+export const currentTrackCSS = css<{ currentTrack: boolean }>`
+  .currentTrack {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    opacity: ${({ currentTrack }) => (currentTrack ? 1 : 0)};
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.2s ease;
+    font-size: 22px;
+  }
+  background-color: ${({ currentTrack }) => currentTrack && "rgba(255,255,255,0.3)"}!important;
+`;
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
