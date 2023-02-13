@@ -1,11 +1,26 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import styled from "styled-components";
 
 export default function Navbar() {
+  const router = useRouter();
+  const [keyword, setKeyword] = useState("");
   return (
     <NavStyle>
       <h1>Playstify</h1>
-      <input placeholder="search..." />
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          router.push(`/search/${keyword}`);
+        }}
+      >
+        <input
+          placeholder="search..."
+          onChange={(e) => setKeyword(e.target.value)}
+          value={keyword}
+        />
+      </form>
       <ul>
         <li>
           <Link href={"/mood"}>Mood</Link>
@@ -32,13 +47,16 @@ const NavStyle = styled.nav`
     font-weight: 600;
     margin-bottom: 22px;
   }
-  > input {
+  > form > input {
     width: 100%;
     background: ${({ theme }) => theme.colors.bgColor};
     border: 1px solid #3b3b3c;
     border-radius: 4px;
     padding: 5px 8px;
     margin-bottom: 24px;
+    ::placeholder {
+      opacity: 0.4;
+    }
   }
   > ul {
     display: flex;

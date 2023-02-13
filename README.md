@@ -1,6 +1,6 @@
 ### TODO
 
-- [ ] search bar
+- [x] search bar
 - [ ] side bar playlist
 - [ ] random play
 - [ ] repeat play

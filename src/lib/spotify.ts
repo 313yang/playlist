@@ -40,7 +40,7 @@ export const getAccessToken = async () => {
 export const searchTrackById = async (id: string) => {
   const token = await getAccessToken();
 
-  const { data } = await axios.get(`api/track/${id}`, {
+  const { data } = await axios.get(`/api/track/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -57,12 +57,12 @@ export const searchTrackById = async (id: string) => {
 
   return totalSongs;
 };
-
+console.log(process.env["HOST"]);
 export const searchPlaylistKeyword = async (keyword: string) => {
   const token = await getAccessToken();
 
   const getPlaylist = (
-    await axios.get(`api/search/${keyword}`, {
+    await axios.get(`/api/search/${keyword}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
