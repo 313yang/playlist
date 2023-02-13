@@ -10,7 +10,7 @@ interface Props {
 export default function InputRange({ min, max, step, value, handleOnChange, styles }: Props) {
   return (
     <StyleInputRange
-      style={styles}
+      style={styles || {}}
       min={min}
       max={max}
       step={step}

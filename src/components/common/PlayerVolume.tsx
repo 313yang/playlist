@@ -5,23 +5,20 @@ import InputRange from "./InputRange";
 
 export default function PlayerVolume() {
   const { setVolume, volume } = usePlayerState();
+
   const handleVolumeOnChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setVolume(+e.target.value);
 
-  const volumeIcon = () => {
-    if (volume > 0.5) return <IoVolumeMedium />;
-    if (volume > 0 && volume <= 0.5) return <IoVolumeLow />;
-    if (volume === 0) return <IoVolumeMute />;
-  };
-  console.log(volume * 100);
   return (
     <VolumeWrap>
-      {volumeIcon()}
+      {volume > 0.5 && <IoVolumeMedium />}
+      {volume > 0 && volume <= 0.5 && <IoVolumeLow />}
+      {volume === 0 && <IoVolumeMute />}
       <InputRange
         styles={{
-          background: `linear-gradient(to right, #b8b8b8 0%, #b8b8b8 ${volume * 100}%, #5f5f5f ${
-            volume * 100
-          }%)`,
+          background: `linear-gradient(to right, #b8b8b8 0%, #b8b8b8 ${
+            (volume || 0) * 100
+          }%, #5f5f5f ${(volume || 0) * 100}%)`,
         }}
         min={0}
         max={1}

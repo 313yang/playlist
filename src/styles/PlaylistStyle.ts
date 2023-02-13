@@ -57,6 +57,7 @@ export const TrackStyle = styled.li`
     position: absolute;
     background-color: rgba(0, 0, 0, 0.5);
     transition: opacity 0.2s ease;
+    font-size: 28px;
   }
   &:hover {
     > div {

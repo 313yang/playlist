@@ -25,8 +25,8 @@ export default function TrackTable({ playlist }: { playlist: ITrack[] }) {
         {playlist.map((track, index) => (
           <tr key={track.id} onClick={() => handleSetTrack(index)}>
             <td>
-              <Image width={"40"} height={"40"} src={track.image} alt={track.time} />
-              <p>{track.title}</p>
+              <Image width={"40"} height={"40"} src={track.image} alt={track.title} />
+              {track.title}
             </td>
             <td>{track.artist}</td>
             <td>{track.album}</td>

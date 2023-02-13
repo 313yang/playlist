@@ -21,27 +21,24 @@ export default function Playlist({ id }: { id: string }) {
 
   return (
     <PlaylistContainer>
-      <CurrentTrackContainer>
-        <Image
-          src={playlist?.image || ""}
-          alt={playlist?.title || ""}
-          width={"300"}
-          height={"300"}
-        />
-        <div>
-          <h1>{playlist?.title}</h1>
-          <h2>{playlist?.sub}</h2>
+      {!!playlist && (
+        <CurrentTrackContainer>
+          <Image src={playlist.image} alt={playlist.title} width={"300"} height={"300"} />
           <div>
-            <FlatButton>
-              <IoPlay /> Play
-            </FlatButton>
-            <FlatButton>
-              <IoShuffle />
-              Random
-            </FlatButton>
+            <h1>{playlist.title}</h1>
+            <h2>{playlist.sub}</h2>
+            <div>
+              <FlatButton>
+                <IoPlay /> Play
+              </FlatButton>
+              <FlatButton>
+                <IoShuffle />
+                Random
+              </FlatButton>
+            </div>
           </div>
-        </div>
-      </CurrentTrackContainer>
+        </CurrentTrackContainer>
+      )}
       {isLoading ? <Spinner /> : <TrackTable playlist={data} />}
     </PlaylistContainer>
   );

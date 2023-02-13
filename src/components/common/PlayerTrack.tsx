@@ -1,19 +1,21 @@
+import { useGetYoutubeId } from "@/util/hooks/useGetYoutubeId";
 import { usePlayerState, useSetTrack } from "@/util/store/useStore";
 import Image from "next/image";
-import { Dispatch, MutableRefObject, SetStateAction } from "react";
+import { useRef } from "react";
+import ReactPlayer from "react-player";
 import styled from "styled-components";
 import InputRange from "./InputRange";
 
-interface Props {
-  videoRef: any;
-}
-export default function PlayerTrack({ videoRef }: Props) {
+export default function PlayerTrack() {
   const { track } = useSetTrack();
-  const { progress, setProgress } = usePlayerState();
+  const { handleNextTrack } = useSetTrack();
+  const { progress, setProgress, volume, play, setPlay } = usePlayerState();
+  const { data } = useGetYoutubeId();
+  const videoRef = useRef<any>(null);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProgress(+e.target.value);
-    videoRef?.current.seekTo(+e.target.value);
+    videoRef.current.seekTo(+e.target.value);
   };
 
   return (
@@ -22,8 +24,8 @@ export default function PlayerTrack({ videoRef }: Props) {
         <div>
           <Image width={"40"} height={"40"} src={track.image} alt={track.time} />
           <div>
-            <p>{track.title}</p>
-            <p>{track.artist}</p>
+            <h6>{track.title}</h6>
+            <h6>{track.artist}</h6>
             <InputRange
               min={0}
               max={1}
@@ -32,9 +34,26 @@ export default function PlayerTrack({ videoRef }: Props) {
               handleOnChange={handleOnChange}
             />
           </div>
+
+          <ReactPlayer
+            ref={videoRef}
+            url={`https://youtu.be/${data}`}
+            width="0"
+            height="0"
+            volume={volume}
+            playing={play}
+            onReady={() => setPlay(true)}
+            onEnded={handleNextTrack}
+            onProgress={(e) => setProgress(e.played)}
+          />
         </div>
       ) : (
-        <div></div>
+        <div>
+          <div style={{ backgroundColor: "#ddd", width: 40, height: 40 }} />
+          <div>
+            <p>Not played</p>
+          </div>
+        </div>
       )}
     </PlayerTrackWrap>
   );
@@ -56,7 +75,7 @@ const PlayerTrackWrap = styled.div`
       align-items: center;
       justify-content: space-between;
       padding-top: 5px;
-      > p {
+      > h6 {
         font-size: 12px;
         font-weight: 500;
         :nth-child(2) {

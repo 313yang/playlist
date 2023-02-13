@@ -75,14 +75,17 @@ export const useSetTrack = create<IUseSetTrack>()(
 interface IUsePlayerState {
   volume: number;
   progress: number;
+  play: boolean;
   setVolume: (val: number) => void;
   setProgress: (val: number) => void;
+  setPlay: (val: boolean) => void;
 }
 export const usePlayerState = create<IUsePlayerState>()(
   persist(
     (set) => ({
       volume: 1,
       progress: 0,
+      play: false,
       setVolume: (val: number) => {
         set((state: any) => ({
           ...state,
@@ -94,6 +97,13 @@ export const usePlayerState = create<IUsePlayerState>()(
         set((state: any) => ({
           ...state,
           progress: val,
+        }));
+      },
+
+      setPlay: (val: boolean) => {
+        set((state: any) => ({
+          ...state,
+          play: val,
         }));
       },
     }),

@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default function Navbar() {
   return (
     <NavStyle>
-      <p>Playstify</p>
+      <h1>Playstify</h1>
       <input placeholder="search..." />
       <ul>
         <li>
@@ -27,7 +27,7 @@ const NavStyle = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
-  > p {
+  > h1 {
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 22px;
