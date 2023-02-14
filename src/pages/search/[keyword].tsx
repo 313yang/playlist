@@ -1,8 +1,6 @@
 import Spinner from "@/components/common/Spinner";
 import { searchPlaylistKeyword } from "@/lib/spotify";
 import { PlaylistContainer, TrackListsStyle } from "@/styles/PlaylistStyle";
-import { useSetTrack } from "@/util/store/usePlayerStore";
-import { useEffect } from "react";
 import { useQuery } from "react-query";
 import TrackListComponent from "@/components/TrackListComponent";
 

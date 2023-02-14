@@ -1,11 +1,9 @@
 import styled from "styled-components";
-import dynamic from "next/dynamic";
 import PlayerVolume from "@/components/common/PlayerVolume";
 import { IoList } from "react-icons/io5";
 import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
-
-const PlayerButtons = dynamic(() => import("@/components/common/PlayerButtons"), { ssr: false });
-const PlayerTrack = dynamic(() => import("@/components/common/PlayerTrack"), { ssr: false });
+import PlayerButtons from "../common/PlayerButtons";
+import PlayerTrack from "../common/PlayerTrack";
 
 export default function Header() {
   const { sidebarIsOpen } = usePlayer();

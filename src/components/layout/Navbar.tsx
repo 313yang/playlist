@@ -2,13 +2,18 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
+import icon from "public/icon.svg";
+import Image from "next/image";
 
 export default function Navbar() {
   const router = useRouter();
   const [keyword, setKeyword] = useState("");
   return (
     <NavStyle>
-      <h1>Playsism</h1>
+      <Link href={"/"}>
+        <Image src={icon} width="20" height="20" alt="logo" />
+        <h1>Soundy</h1>
+      </Link>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -43,11 +48,19 @@ const NavStyle = styled.nav`
   top: 0;
   left: 0;
   z-index: 2;
-  > h1 {
-    font-size: 24px;
-    font-weight: 600;
+  > a {
+    display: flex;
+    align-items: center;
     margin-bottom: 22px;
+    > img {
+      margin-right: 10px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 900;
+    }
   }
+
   > form > input {
     width: 100%;
     background: ${({ theme }) => theme.colors.bgColor};

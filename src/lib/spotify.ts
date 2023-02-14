@@ -37,6 +37,21 @@ export const getAccessToken = async () => {
 //   }));
 //   return result;
 // };
+interface ITrackDefault {
+  name: string;
+  id: string;
+  album: {
+    album: string;
+    images: [{ url: string }];
+    name: string;
+  };
+  artists: [{ name: string }];
+  duration_ms: number;
+  images: [{ url: string }];
+  owner: {
+    display_name: string;
+  };
+}
 export const searchTrackById = async (id: string) => {
   const token = await getAccessToken();
 
@@ -46,7 +61,7 @@ export const searchTrackById = async (id: string) => {
     },
   });
 
-  let totalSongs = data.items.map(({ track }, index: number) => ({
+  let totalSongs = data.items.map(({ track }: { track: ITrackDefault }, index: number) => ({
     title: track.name,
     id: track.id,
     image: track.album.images[0].url,
@@ -68,7 +83,7 @@ export const searchPlaylistKeyword = async (keyword: string) => {
       },
     })
   ).data.playlists.items;
-  const result = getPlaylist.map((track) => ({
+  const result = getPlaylist.map((track: ITrackDefault) => ({
     title: track.name,
     image: track.images[0].url,
     id: track.id,
