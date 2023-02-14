@@ -1,11 +1,11 @@
-import TrackListComponent from "@/components/TrackListComponent";
-import { PlaylistContainer, TrackListsStyle } from "@/styles/PlaylistStyle";
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import PlaylistComponent from "@/components/PlaylistComponent";
 
-export default function Home() {
+const keywords = ["coding", "study", "night", "drive", "fitness", "morning", "rainning", "bathtub"];
+export default function Mood() {
   return (
-    <PlaylistContainer>
-      <h1>New Music</h1>
-    </PlaylistContainer>
+    <PlaylistComponent
+      type={{ title: "Mood", sub: "Playlists to match your mood." }}
+      keywords={keywords}
+    />
   );
 }
