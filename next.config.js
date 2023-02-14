@@ -11,15 +11,7 @@ const nextConfig = {
       "seeded-session-images.scdn.co",
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/mood",
-        permanent: true,
-      },
-    ];
-  },
+
   async rewrites() {
     return [
       {
