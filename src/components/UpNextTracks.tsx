@@ -1,13 +1,17 @@
 import { currentTrackCSS, textHidden } from "@/styles/GlobalStyle";
 import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import Image from "next/image";
-import { IoPlay } from "react-icons/io5";
+import { IoPlay, IoRemoveCircleSharp } from "react-icons/io5";
 import styled from "styled-components";
 
 export default function UpNextTracks({ track, index }: { track: ITrack; index: number }) {
   const currentTrack = useTrack();
-  const { handlePlayTrack } = useTrackActions();
+  const { handlePlayTrack, handleRemoveTrack } = useTrackActions();
 
+  const handleDeleteSelectedTrack = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    handleRemoveTrack(track, index);
+  };
   return (
     <TrackListStyle
       currentTrack={
@@ -15,6 +19,9 @@ export default function UpNextTracks({ track, index }: { track: ITrack; index: n
       }
       onClick={() => handlePlayTrack(index)}
     >
+      <button type="button" onClick={handleDeleteSelectedTrack}>
+        <IoRemoveCircleSharp />
+      </button>
       <div className="currentTrack">
         <IoPlay />
       </div>
@@ -37,7 +44,32 @@ const TrackListStyle = styled.li<{ currentTrack: boolean }>`
   cursor: pointer;
   border-radius: 4px;
   padding: 5px;
+  position: relative;
   ${currentTrackCSS};
+  > button {
+    position: absolute;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    padding: 0;
+    background-color: #fff;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    top: 0;
+    left: 0;
+
+    > svg {
+      color: ${({ theme }) => theme.colors.main};
+      font-size: 20px;
+    }
+  }
+  :hover {
+    > button {
+      display: flex;
+    }
+  }
   > img {
     border-radius: 4px;
     margin-right: 10px;

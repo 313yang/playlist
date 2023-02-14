@@ -7,12 +7,13 @@ type Nullable<T> = T | null;
 interface IUseTrackStore {
   tracks: ITrack[] | [];
   track: Nullable<ITrack>;
-  trackNum: Nullable<number>;
+  trackNum: number;
 
   setTracks: (tracklist: ITrack[]) => void;
   handleShuffleTracks: (isShuffle: boolean) => void;
   handleAddOneTrack: (track: ITrack) => void;
   handleRemoveTracks: () => void;
+  handleRemoveTrack: (track: ITrack, index: number) => void;
   handlePlayTracks: (tracks: ITrack[]) => void;
   handlePlayTrack: (trackNum: number) => void;
   handleNextTrack: () => void;
@@ -24,7 +25,7 @@ const useTrackStore = create<IUseTrackStore>()(
     (set) => ({
       tracks: [],
       track: null,
-      trackNum: null,
+      trackNum: 0,
 
       setTracks: (list: ITrack[]) =>
         set((state: any) => ({
@@ -65,6 +66,20 @@ const useTrackStore = create<IUseTrackStore>()(
           trackNum: 0,
           track: null,
         })),
+
+      handleRemoveTrack: (track, index) =>
+        set((state) => {
+          const filterArr = state.tracks.filter(
+            (li) => li.id !== track.id && li.sort !== track.sort
+          );
+          const trackNum = state.trackNum > index ? state.trackNum - 1 : state.trackNum;
+          return {
+            ...state,
+            tracks: [...filterArr],
+            trackNum: trackNum,
+            track: [...filterArr][trackNum],
+          };
+        }),
       handleAddOneTrack: (track: ITrack) =>
         set((state: any) => {
           let setTracksArr = [];
@@ -105,4 +120,5 @@ export const useTrackActions = () =>
     handlePlayTrack: state.handlePlayTrack,
     handleShuffleTracks: state.handleShuffleTracks,
     handlePlayTracks: state.handlePlayTracks,
+    handleRemoveTrack: state.handleRemoveTrack,
   }));
