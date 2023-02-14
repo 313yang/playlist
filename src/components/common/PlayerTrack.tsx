@@ -1,6 +1,7 @@
 import { textHidden } from "@/styles/GlobalStyle";
 import { useGetYoutubeId } from "@/util/hooks/useGetYoutubeId";
-import { usePlayerState, useSetTrack } from "@/util/store/useStore";
+import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
+import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import Image from "next/image";
 import { useRef } from "react";
 import ReactPlayer from "react-player";
@@ -8,9 +9,10 @@ import styled from "styled-components";
 import InputRange from "./InputRange";
 
 export default function PlayerTrack() {
-  const { track } = useSetTrack();
-  const { handleNextTrack } = useSetTrack();
-  const { progress, setProgress, volume, play, setPlay } = usePlayerState();
+  const track = useTrack();
+  const { handleNextTrack } = useTrackActions();
+  const { progress, volume, play } = usePlayer();
+  const { setProgress, setPlay } = usePlayerActions();
   const { data } = useGetYoutubeId();
   const videoRef = useRef<any>(null);
 

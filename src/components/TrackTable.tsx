@@ -1,19 +1,14 @@
 import { TableStyle, TrStyle } from "@/styles/common/TableStyle";
-import { useGetYoutubeId } from "@/util/hooks/useGetYoutubeId";
-import { useSetTrack } from "@/util/store/useStore";
+import { useTrack, useTrackActions } from "@/util/store/useTrackStore";
 import Image from "next/image";
 import { IoPlay } from "react-icons/io5";
 
 export default function TrackTable({ playlist }: { playlist: ITrack[] }) {
-  const { setTrackNum, track: currentTrack, setTracks, tracks } = useSetTrack();
-  const { refetch } = useGetYoutubeId();
+  const currentTrack = useTrack();
+  const { handleAddOneTrack } = useTrackActions();
 
-  const handleSetTrack = (track: ITrack, index: number) => {
-    setTracks([...tracks, { ...track, sort: tracks.length + 1 }]);
-    if (tracks.length === 0) {
-      setTrackNum(index);
-      refetch();
-    }
+  const handleSetTrack = (track: ITrack) => {
+    handleAddOneTrack(track);
   };
   return (
     <>
@@ -27,13 +22,13 @@ export default function TrackTable({ playlist }: { playlist: ITrack[] }) {
           </tr>
         </thead>
         <tbody>
-          {playlist.map((track, index) => (
+          {playlist.map((track) => (
             <TrStyle
               currentTrack={
                 !!currentTrack && currentTrack.id === track.id && currentTrack.sort === track.sort
               }
               key={track.id}
-              onClick={() => handleSetTrack(track, index)}
+              onClick={() => handleSetTrack(track)}
             >
               <td>
                 <div className="currentTrack">

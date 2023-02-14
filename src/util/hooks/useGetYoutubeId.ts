@@ -1,11 +1,10 @@
 import { findVideo } from "@/lib/youtube";
 import { useQuery } from "react-query";
-import { useSetTrack } from "../store/useStore";
+import { useTrack } from "../store/useTrackStore";
 
 export const useGetYoutubeId = () => {
-  const { track } = useSetTrack();
-  // if (!!track)
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const track = useTrack();
+
   return useQuery(
     ["playTrack", track?.id],
     () => findVideo({ title: track?.title || "", artist: track?.artist || "" }),

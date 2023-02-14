@@ -1,17 +1,19 @@
 import { currentTrackCSS, textHidden } from "@/styles/GlobalStyle";
-import { useSetTrack } from "@/util/store/useStore";
+import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import Image from "next/image";
 import { IoPlay } from "react-icons/io5";
 import styled from "styled-components";
 
 export default function UpNextTracks({ track, index }: { track: ITrack; index: number }) {
-  const { setTrackNum, track: currentTrack } = useSetTrack();
+  const currentTrack = useTrack();
+  const { handlePlayTrack } = useTrackActions();
+
   return (
     <TrackListStyle
       currentTrack={
         !!currentTrack && currentTrack.id === track.id && currentTrack.sort === track.sort
       }
-      onClick={() => setTrackNum(index)}
+      onClick={() => handlePlayTrack(index)}
     >
       <div className="currentTrack">
         <IoPlay />

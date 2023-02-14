@@ -1,23 +1,17 @@
-import { usePlayerState, useSetTrack } from "@/util/store/useStore";
+import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
 import styled from "styled-components";
 import { IoPause, IoPlay, IoPlayBack, IoPlayForward, IoRepeat, IoShuffle } from "react-icons/io5";
-import { shuffleArray } from "@/util/common/shuffleArray";
-import { useState } from "react";
+import { useTrack, useTrackActions } from "@/util/store/useTrackStore";
 
 export default function PlayerButtons() {
-  const { handleNextTrack, handlePrevTrack, track, tracks, setTracks, setTrackNum } = useSetTrack();
-  const { play, setPlay } = usePlayerState();
-  const [isShuffle, setIsShuffle] = useState(false);
+  const { handleNextTrack, handlePrevTrack, handleShuffleTracks } = useTrackActions();
+  const track = useTrack();
+  const { play, isShuffle } = usePlayer();
+  const { setIsShuffle, setPlay } = usePlayerActions();
 
   const handleShuffle = () => {
-    setIsShuffle(!isShuffle);
-    if (!isShuffle) setTracks(shuffleArray(tracks));
-    else {
-      const sortArr = tracks.sort((a, b) => a.sort - b.sort);
-      console.table(sortArr);
-      setTracks(sortArr);
-    }
-    setTrackNum(0);
+    setIsShuffle();
+    handleShuffleTracks(isShuffle);
   };
   return (
     <Buttons>

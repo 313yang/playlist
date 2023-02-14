@@ -1,15 +1,17 @@
-import { useSetTrack, useSidebarToggle } from "@/util/store/useStore";
+import { usePlayer } from "@/util/store/usePlayerStore";
+import { useTrackActions, useTracks } from "@/util/store/useTrackStore";
 import styled from "styled-components";
 import UpNextTracks from "../UpNextTracks";
 
 export default function Sidebar() {
-  const { isOpen } = useSidebarToggle();
-  const { tracks, setTracks } = useSetTrack();
+  const { sidebarIsOpen } = usePlayer();
+  const tracks = useTracks();
+  const { handleRemoveTracks } = useTrackActions();
   return (
-    <SidebarStyle isOpen={isOpen}>
+    <SidebarStyle sidebarIsOpen={sidebarIsOpen}>
       <div>
         <h3>Up Next</h3>
-        <button type="button" onClick={() => setTracks([])}>
+        <button type="button" onClick={handleRemoveTracks}>
           <h4>Clear</h4>
         </button>
       </div>
@@ -22,7 +24,7 @@ export default function Sidebar() {
   );
 }
 
-const SidebarStyle = styled.aside<{ isOpen: boolean }>`
+const SidebarStyle = styled.aside<{ sidebarIsOpen: boolean }>`
   position: fixed;
   width: 300px;
   height: calc(100vh - 50px);
@@ -31,7 +33,7 @@ const SidebarStyle = styled.aside<{ isOpen: boolean }>`
   background-color: #282828;
   z-index: 1;
   transition: all 0.2s ease-in-out;
-  right: ${({ isOpen }) => (isOpen ? 0 : "-300px")};
+  right: ${({ sidebarIsOpen }) => (sidebarIsOpen ? 0 : "-300px")};
   overflow: auto;
   padding: 0 20px;
   > div {

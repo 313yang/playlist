@@ -1,26 +1,26 @@
 import styled from "styled-components";
 import dynamic from "next/dynamic";
-// import PlayerButtons from "@/components/common/PlayerButtons";
-// import PlayerTrack from "@/components/common/PlayerTrack";
 import PlayerVolume from "@/components/common/PlayerVolume";
 import { IoList } from "react-icons/io5";
-import { useSidebarToggle } from "@/util/store/useStore";
+import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
 
 const PlayerButtons = dynamic(() => import("@/components/common/PlayerButtons"), { ssr: false });
 const PlayerTrack = dynamic(() => import("@/components/common/PlayerTrack"), { ssr: false });
 
 export default function Header() {
-  const { setIsOpen, isOpen } = useSidebarToggle();
+  const { sidebarIsOpen } = usePlayer();
+  const { setSidebarsidebarIsOpen } = usePlayerActions();
+
   return (
-    <HeaderStyle isOpen={isOpen}>
+    <HeaderStyle sidebarIsOpen={sidebarIsOpen}>
       <PlayerButtons />
       <PlayerTrack />
       <PlayerVolume />
-      <IoList onClick={setIsOpen} />
+      <IoList onClick={setSidebarsidebarIsOpen} />
     </HeaderStyle>
   );
 }
-const HeaderStyle = styled.div<{ isOpen: boolean }>`
+const HeaderStyle = styled.div<{ sidebarIsOpen: boolean }>`
   position: sticky;
   top: 0;
   z-index: 1;
@@ -36,7 +36,7 @@ const HeaderStyle = styled.div<{ isOpen: boolean }>`
     align-items: center;
   }
   > svg {
-    color: ${({ isOpen, theme }) => (isOpen ? theme.colors.main : "#fff")};
+    color: ${({ sidebarIsOpen, theme }) => (sidebarIsOpen ? theme.colors.main : "#fff")};
     margin-left: 80px;
   }
 `;

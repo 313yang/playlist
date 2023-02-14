@@ -1,14 +1,14 @@
 import { TrackStyle } from "@/styles/PlaylistStyle";
-import { useSelectPlaylist } from "@/util/store/useStore";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { IoPlay } from "react-icons/io5";
+import { useSetPlaylist } from "@/util/store/usePlaylistStore";
 
 export default function TrackListComponent({ track }: { track: IPlaylist }) {
   const router = useRouter();
-  const { setPlaylist } = useSelectPlaylist();
+  const setPlaylist = useSetPlaylist();
+
   const handleSelectPlaylist = () => {
-    console.log(track.id);
     router.push(`/${track.id}`);
     setPlaylist(track);
   };

@@ -57,7 +57,7 @@ export const searchTrackById = async (id: string) => {
   }));
   return totalSongs;
 };
-console.log(process.env["HOST"]);
+
 export const searchPlaylistKeyword = async (keyword: string) => {
   const token = await getAccessToken();
 

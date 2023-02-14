@@ -4,29 +4,25 @@ import { searchTrackById } from "@/lib/spotify";
 import { FlatButton } from "@/styles/common/ButtonStyle";
 import { CurrentTrackContainer } from "@/styles/CurrentTrack";
 import { PlaylistContainer } from "@/styles/PlaylistStyle";
-import { useSelectPlaylist, useSetTrack } from "@/util/store/useStore";
 import Image from "next/image";
 import { IoAdd, IoPlay, IoShuffle } from "react-icons/io5";
-import { useEffect } from "react";
-import { useGetYoutubeId } from "@/util/hooks/useGetYoutubeId";
 import { useQuery } from "react-query";
+import { usePlaylist } from "@/util/store/usePlaylistStore";
+import { useTrackActions, useSetTracks, useTracks } from "@/util/store/useTrackStore";
+import { shuffleArray } from "@/util/common/shuffleArray";
 
 export default function Playlist({ id }: { id: string }) {
   const { data, isLoading, error } = useQuery(["playlist", id], () => searchTrackById(id));
-
-  const { playlist } = useSelectPlaylist();
-  const { setTrackNum, setRandomTracks, setTracks, tracks, track } = useSetTrack();
-  const { refetch } = useGetYoutubeId();
+  const playlist = usePlaylist();
+  const tracks = useTracks();
+  const setTracks = useSetTracks();
+  const { handlePlayTracks } = useTrackActions();
 
   const handleSetTracks = () => {
-    refetch();
-    setTracks([...data]);
-    setTrackNum(0);
-    console.log(data);
+    handlePlayTracks([...data]);
   };
   const handleSetRandomTracks = () => {
-    setRandomTracks([...data]);
-    setTrackNum(0);
+    handlePlayTracks(shuffleArray([...data]));
   };
   const handleSetAddTracks = () => {
     /* 기존 플레이리스트에 추가 & 트랙재생 그대로 , 플레이리스트 없는경우 다시 트랙 시작*/
