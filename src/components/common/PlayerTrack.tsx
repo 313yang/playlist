@@ -4,6 +4,7 @@ import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
 import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import Image from "next/image";
 import { useRef } from "react";
+import { RiPlayListFill } from "react-icons/ri";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
 import InputRange from "./InputRange";
@@ -53,9 +54,9 @@ export default function PlayerTrack() {
         </div>
       ) : (
         <div>
-          <div style={{ backgroundColor: "#ddd", width: 40, height: 40 }} />
-          <div>
-            <p>Not played</p>
+          <div style={{ backgroundColor: "#ddd", width: 40, height: 40, borderRadius: 2 }} />
+          <div style={{ justifyContent: "center", padding: 0 }}>
+            <RiPlayListFill />
           </div>
         </div>
       )}
@@ -89,6 +90,10 @@ const PlayerTrackWrap = styled.div`
           margin-bottom: 2px;
           opacity: 0.6;
         }
+      }
+      > svg {
+        font-size: 14px;
+        opacity: 0.4;
       }
       input {
         -webkit-appearance: none;

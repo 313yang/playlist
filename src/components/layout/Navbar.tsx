@@ -10,7 +10,7 @@ export default function Navbar() {
   const [keyword, setKeyword] = useState("");
   return (
     <NavStyle>
-      <Link href={"/"}>
+      <Link href={"/mood"}>
         <Image src={icon} width="20" height="20" alt="logo" />
         <h1>Soundy</h1>
       </Link>
@@ -27,9 +27,9 @@ export default function Navbar() {
         />
       </form>
       <ul>
-        <li>
+        {/* <li>
           <Link href={"/"}>New</Link>
-        </li>
+        </li> */}
         <li>
           <Link href={"/mood"}>Mood</Link>
         </li>
