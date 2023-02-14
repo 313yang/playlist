@@ -19,6 +19,10 @@ const nextConfig = {
         destination: `https://api.spotify.com/v1/search?q=:keyword&type=playlist&limit=50&offset=0`,
       },
       {
+        source: `/api/new-releases`,
+        destination: `https://api.spotify.com/v1/browse/new-releases`,
+      },
+      {
         source: "/api/token",
         destination: `https://accounts.spotify.com/api/token`,
       },

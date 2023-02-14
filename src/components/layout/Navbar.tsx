@@ -28,6 +28,9 @@ export default function Navbar() {
       </form>
       <ul>
         <li>
+          <Link href={"/"}>New</Link>
+        </li>
+        <li>
           <Link href={"/mood"}>Mood</Link>
         </li>
         <li>
