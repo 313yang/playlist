@@ -7,6 +7,7 @@ interface IUsePlayerStore {
   play: boolean;
   isShuffle: boolean;
   sidebarIsOpen: boolean;
+
   setVolume: (val: number) => void;
   setProgress: (val: number) => void;
   setPlay: (val: boolean) => void;
@@ -28,24 +29,15 @@ const usePlayerStore = create<IUsePlayerStore>()(
         }));
       },
       setVolume: (val: number) => {
-        set((state: any) => ({
-          ...state,
-          volume: val,
-        }));
+        set({ volume: val });
       },
 
       setProgress: (val: number) => {
-        set((state: any) => ({
-          ...state,
-          progress: val,
-        }));
+        set({ progress: val });
       },
 
       setPlay: (val: boolean) => {
-        set((state: any) => ({
-          ...state,
-          play: val,
-        }));
+        set({ play: val });
       },
 
       setIsShuffle: () => {
@@ -58,20 +50,16 @@ const usePlayerStore = create<IUsePlayerStore>()(
     { name: "player" }
   )
 );
-const useVolume = () => usePlayerStore((state) => state.volume);
-const useProgress = () => usePlayerStore((state) => state.progress);
-const usePlay = () => usePlayerStore((state) => state.play);
-const useIsShuffle = () => usePlayerStore((state) => state.isShuffle);
-const useSidebarIsOpen = () => usePlayerStore((state) => state.sidebarIsOpen);
 
-export const usePlayer = () => {
-  const volume = useVolume();
-  const progress = useProgress();
-  const play = usePlay();
-  const isShuffle = useIsShuffle();
-  const sidebarIsOpen = useSidebarIsOpen();
-  return { volume, progress, play, isShuffle, sidebarIsOpen };
-};
+export const usePlayer = () =>
+  usePlayerStore((state) => ({
+    volume: state.volume,
+    progress: state.progress,
+    play: state.play,
+    isShuffle: state.isShuffle,
+    sidebarIsOpen: state.sidebarIsOpen,
+  }));
+
 export const usePlayerActions = () =>
   usePlayerStore((state) => ({
     setSidebarsidebarIsOpen: state.setSidebarsidebarIsOpen,

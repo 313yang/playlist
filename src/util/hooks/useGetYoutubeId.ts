@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { useTrack } from "../store/useTrackStore";
 
 export const useGetYoutubeId = () => {
-  const track = useTrack();
+  const { track } = useTrack();
 
   return useQuery(
     ["playTrack", track?.id],

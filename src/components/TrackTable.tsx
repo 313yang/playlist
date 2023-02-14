@@ -4,7 +4,7 @@ import Image from "next/image";
 import { IoPlay } from "react-icons/io5";
 
 export default function TrackTable({ playlist }: { playlist: ITrack[] }) {
-  const currentTrack = useTrack();
+  const { track: currentTrack } = useTrack();
   const { handleAddOneTrack } = useTrackActions();
 
   const handleSetTrack = (track: ITrack) => {

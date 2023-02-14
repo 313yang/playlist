@@ -8,16 +8,15 @@ import Image from "next/image";
 import { IoAdd, IoPlay, IoShuffle } from "react-icons/io5";
 import { useQuery } from "react-query";
 import { usePlaylist } from "@/util/store/usePlaylistStore";
-import { useTrackActions, useSetTracks, useTracks } from "@/util/store/useTrackStore";
+import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import { shuffleArray } from "@/util/common/shuffleArray";
 
 export default function Playlist({ id }: { id: string }) {
   const { data, isLoading, error } = useQuery(["playlist", id], () => searchTrackById(id));
   const playlist = usePlaylist();
-  const tracks = useTracks();
-  const setTracks = useSetTracks();
-  const { handlePlayTracks } = useTrackActions();
-
+  const { tracks } = useTrack();
+  const { handlePlayTracks, handleAddTracks } = useTrackActions();
+  console.table(tracks);
   const handleSetTracks = () => {
     handlePlayTracks([...data]);
   };
@@ -26,11 +25,7 @@ export default function Playlist({ id }: { id: string }) {
   };
   const handleSetAddTracks = () => {
     /* 기존 플레이리스트에 추가 & 트랙재생 그대로 , 플레이리스트 없는경우 다시 트랙 시작*/
-    if (tracks.length > 0)
-      setTracks([
-        ...tracks,
-        ...data.map((list: ITrack, index: number) => ({ ...list, sort: tracks.length + index })),
-      ]);
+    if (tracks.length > 0) handleAddTracks(data);
     else handleSetTracks();
   };
 

@@ -5,7 +5,7 @@ import { IoPlay, IoRemoveCircleSharp } from "react-icons/io5";
 import styled from "styled-components";
 
 export default function UpNextTracks({ track, index }: { track: ITrack; index: number }) {
-  const currentTrack = useTrack();
+  const { track: currentTrack } = useTrack();
   const { handlePlayTrack, handleRemoveTrack } = useTrackActions();
 
   const handleDeleteSelectedTrack = (e: React.MouseEvent) => {

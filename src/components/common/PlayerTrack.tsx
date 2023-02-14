@@ -9,7 +9,7 @@ import styled from "styled-components";
 import InputRange from "./InputRange";
 
 export default function PlayerTrack() {
-  const track = useTrack();
+  const { track, repeat } = useTrack();
   const { handleNextTrack } = useTrackActions();
   const { progress, volume, play } = usePlayer();
   const { setProgress, setPlay } = usePlayerActions();
@@ -43,6 +43,7 @@ export default function PlayerTrack() {
             url={`https://youtu.be/${data}`}
             width="0"
             height="0"
+            loop={repeat === "loop"}
             volume={volume}
             playing={play}
             onReady={() => setPlay(true)}

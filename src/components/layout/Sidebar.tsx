@@ -1,12 +1,13 @@
 import { usePlayer } from "@/util/store/usePlayerStore";
-import { useTrackActions, useTracks } from "@/util/store/useTrackStore";
+import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import styled from "styled-components";
 import UpNextTracks from "../UpNextTracks";
 
 export default function Sidebar() {
   const { sidebarIsOpen } = usePlayer();
-  const tracks = useTracks();
+  const { tracks } = useTrack();
   const { handleRemoveTracks } = useTrackActions();
+  // console.table(tracks);
   return (
     <SidebarStyle sidebarIsOpen={sidebarIsOpen}>
       <div>
