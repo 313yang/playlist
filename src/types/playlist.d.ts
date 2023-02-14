@@ -12,4 +12,5 @@ interface ITrack {
   artist: string;
   time: string;
   album: string;
+  sort: number;
 }

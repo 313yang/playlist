@@ -8,7 +8,7 @@ export default function Navbar() {
   const [keyword, setKeyword] = useState("");
   return (
     <NavStyle>
-      <h1>Playstify</h1>
+      <h1>Playsism</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();

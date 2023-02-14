@@ -23,8 +23,13 @@ export const CurrentTrackContainer = styled.div`
     }
     > div {
       display: flex;
-      > button:first-child {
-        margin-right: 10px;
+      > button {
+        > svg {
+          margin-left: -6px;
+        }
+        :not(:last-child) {
+          margin-right: 10px;
+        }
       }
     }
   }

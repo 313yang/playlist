@@ -1,22 +1,15 @@
-import { searchTrackById } from "@/lib/spotify";
 import { TableStyle, TrStyle } from "@/styles/common/TableStyle";
-import { useGetYoutubeId } from "@/util/hooks/useGetYoutubeId";
-import { useSetTrack } from "@/util/store/useStore";
+import { useTrack, useTrackActions } from "@/util/store/useTrackStore";
 import Image from "next/image";
-import { useEffect } from "react";
 import { IoPlay } from "react-icons/io5";
-import { useQuery } from "react-query";
-import Spinner from "./common/Spinner";
 
 export default function TrackTable({ playlist }: { playlist: ITrack[] }) {
-  const { setTrackNum, track: curentTrack } = useSetTrack();
-  const { refetch } = useGetYoutubeId();
+  const { track: currentTrack } = useTrack();
+  const { handleAddOneTrack } = useTrackActions();
 
-  const handleSetTrack = (index: number) => {
-    refetch();
-    setTrackNum(index);
+  const handleSetTrack = (track: ITrack) => {
+    handleAddOneTrack(track);
   };
-
   return (
     <>
       <TableStyle>
@@ -29,11 +22,13 @@ export default function TrackTable({ playlist }: { playlist: ITrack[] }) {
           </tr>
         </thead>
         <tbody>
-          {playlist.map((track, index) => (
+          {playlist.map((track) => (
             <TrStyle
-              currentTrack={track.id === curentTrack?.id}
+              currentTrack={
+                !!currentTrack && currentTrack.id === track.id && currentTrack.sort === track.sort
+              }
               key={track.id}
-              onClick={() => handleSetTrack(index)}
+              onClick={() => handleSetTrack(track)}
             >
               <td>
                 <div className="currentTrack">

@@ -1,10 +1,11 @@
-import { usePlayerState } from "@/util/store/useStore";
+import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
 import { IoVolumeLow, IoVolumeMedium, IoVolumeMute } from "react-icons/io5";
 import styled from "styled-components";
 import InputRange from "./InputRange";
 
 export default function PlayerVolume() {
-  const { setVolume, volume } = usePlayerState();
+  const { volume } = usePlayer();
+  const { setVolume } = usePlayerActions();
 
   const handleVolumeOnChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setVolume(+e.target.value);

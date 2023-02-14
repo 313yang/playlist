@@ -24,6 +24,22 @@ export const currentTrackCSS = css<{ currentTrack: boolean }>`
   }
   background-color: ${({ currentTrack }) => currentTrack && "rgba(255,255,255,0.3)"}!important;
 `;
+export const ScrollbarCSS = css`
+  ::-webkit-scrollbar {
+    width: 18px;
+    /* background-color: #2c2c2c; */
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #4d4d4d;
+    border-radius: 2px;
+    background-clip: padding-box;
+    border: 4.5px solid transparent;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 2px;
+  }
+`;
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -45,6 +61,7 @@ time, mark, audio, video,input {
 	font: inherit;
 	vertical-align: baseline;
 	box-sizing: border-box;
+	${ScrollbarCSS};
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 

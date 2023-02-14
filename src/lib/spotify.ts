@@ -46,18 +46,18 @@ export const searchTrackById = async (id: string) => {
     },
   });
 
-  let totalSongs = data.items.map(({ track }) => ({
+  let totalSongs = data.items.map(({ track }, index: number) => ({
     title: track.name,
     id: track.id,
     image: track.album.images[0].url,
     artist: track.artists.map((artist: { name: string }) => artist.name).join(","),
     time: msToMinutesAndSeconds(track.duration_ms),
     album: track.album.name,
+    sort: index,
   }));
-
   return totalSongs;
 };
-console.log(process.env["HOST"]);
+
 export const searchPlaylistKeyword = async (keyword: string) => {
   const token = await getAccessToken();
 
