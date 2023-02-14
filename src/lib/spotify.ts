@@ -74,16 +74,17 @@ export const searchTrackById = async (id: string) => {
   return totalSongs;
 };
 
-export const searchPlaylistKeyword = async (keyword: string) => {
+export const searchPlaylistKeyword = async (keyword: string, offset: number) => {
   const token = await getAccessToken();
-
+  console.log(offset, "offset");
   const getPlaylist = (
-    await axios.get(`/api/search/${keyword}`, {
+    await axios.get(`/api/search/${keyword}/${offset * 50}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
   ).data.playlists.items;
+
   const result = getPlaylist.map((track: ITrackDefault) => ({
     title: track.name,
     image: track.images[0].url,
