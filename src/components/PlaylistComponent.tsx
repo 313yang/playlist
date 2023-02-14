@@ -17,7 +17,7 @@ export default function PlaylistComponent({ type, keywords }: Props) {
     searchPlaylistKeyword(selected)
   );
 
-  if (error) return <div>An error has occurred: {error?.message}</div>;
+  if (error) return <div>An error has occurred</div>;
   return (
     <PlaylistContainer>
       <h1>{type.title}</h1>
