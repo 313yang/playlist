@@ -73,7 +73,7 @@ export default function PlaylistComponent({ type, keywords }: Props) {
 export async function getServerSideProps(props: Props) {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery([props.type.title, props.keywords[0]], () =>
-    searchPlaylistKeyword(props.keywords[0])
+    searchPlaylistKeyword(props.keywords[0], 0)
   );
 
   return { props: { ...props, dehydratedState: dehydrate(queryClient) } };
