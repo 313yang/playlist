@@ -16,7 +16,7 @@ export default function Playlist({ id }: { id: string }) {
   const playlist = usePlaylist();
   const { tracks } = useTrack();
   const { handlePlayTracks, handleAddTracks } = useTrackActions();
-  console.table(tracks);
+
   const handleSetTracks = () => {
     handlePlayTracks([...data]);
   };

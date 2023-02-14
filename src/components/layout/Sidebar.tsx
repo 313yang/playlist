@@ -7,7 +7,7 @@ export default function Sidebar() {
   const { sidebarIsOpen } = usePlayer();
   const { tracks } = useTrack();
   const { handleRemoveTracks } = useTrackActions();
-  // console.table(tracks);
+
   return (
     <SidebarStyle sidebarIsOpen={sidebarIsOpen}>
       <div>
@@ -42,7 +42,7 @@ const SidebarStyle = styled.aside<{ sidebarIsOpen: boolean }>`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 240px;
+    width: 260px;
     background-color: #282828f0;
     padding: 23px 0 10px;
     z-index: 1;
@@ -55,8 +55,10 @@ const SidebarStyle = styled.aside<{ sidebarIsOpen: boolean }>`
     }
   }
   > ul {
-    padding: 5px 0;
-    border-top: 1px solid #525252;
-    margin-top: 53px;
+    position: absolute;
+    width: 264px;
+    left: 15px;
+    padding: 10px 0;
+    margin-top: 50px;
   }
 `;

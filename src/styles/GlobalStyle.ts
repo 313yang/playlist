@@ -26,14 +26,14 @@ export const currentTrackCSS = css<{ currentTrack: boolean }>`
 `;
 export const ScrollbarCSS = css`
   ::-webkit-scrollbar {
-    width: 20px;
-    background-color: #2c2c2c;
+    width: 18px;
+    /* background-color: #2c2c2c; */
   }
   ::-webkit-scrollbar-thumb {
     background-color: #4d4d4d;
     border-radius: 2px;
     background-clip: padding-box;
-    border: 5px solid transparent;
+    border: 4.5px solid transparent;
   }
   ::-webkit-scrollbar-track {
     background-color: transparent;
