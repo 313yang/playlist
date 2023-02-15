@@ -6,6 +6,7 @@ export const PlaylistContainer = styled.main`
   flex-direction: column;
   margin-left: 220px;
   margin-top: 40px;
+  margin-bottom: 40px;
   > h1 {
     font-size: 24px;
     font-weight: 700;

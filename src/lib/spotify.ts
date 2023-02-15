@@ -1,7 +1,16 @@
 import { msToMinutesAndSeconds } from "@/util/common/durationTime";
 import axios from "axios";
 
-interface ITrackDefault {
+const MAX_REQ_NUMBER = 1000;
+
+const config = (token: string) => {
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+};
+type IPlaylistDefault = {
   name: string;
   id: string;
   type: string;
@@ -17,7 +26,12 @@ interface ITrackDefault {
     display_name: string;
   };
   track_number: string;
-}
+};
+type ITrackDefault = {
+  track: IPlaylistDefault;
+
+  added_at: string;
+};
 export const getAccessToken = async () => {
   const { data } = await axios.post(
     "/api/token",
@@ -38,15 +52,9 @@ export const getAccessToken = async () => {
 export const getNewReleases = async () => {
   const token = await getAccessToken();
 
-  const getReleaseList = (
-    await axios.get(`/api/new-releases`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).data.albums.items;
+  const getReleaseList = (await axios.get(`/api/new-releases`, config(token))).data.albums.items;
 
-  const result = getReleaseList.map((list: ITrackDefault) => ({
+  const result = getReleaseList.map((list: IPlaylistDefault) => ({
     image: list.images[0].url,
     title: list.name,
     sub: list.artists.map((artist) => artist.name).join(", "),
@@ -59,15 +67,11 @@ export const getNewReleases = async () => {
 export const searchTrackById = async (id: string, searchType: string) => {
   const token = await getAccessToken();
 
-  const { data } = await axios.get(`/api/${searchType}/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  let result;
+  const { data } = await axios.get(`/api/${searchType}/${id}/0`, config(token));
+  let result = [];
+
   if (searchType === "album") {
-    console.log(data.tracks.items);
-    result = data.tracks.items.map((track: ITrackDefault) => ({
+    result = data.tracks.items.map((track: IPlaylistDefault) => ({
       title: track.name,
       id: data.id,
       image: data.images[0].url,
@@ -76,15 +80,23 @@ export const searchTrackById = async (id: string, searchType: string) => {
       album: data.name,
       sort: track.track_number,
     }));
-    console.log(result);
   } else {
-    result = data.items.map(({ track }: { track: ITrackDefault }, index: number) => ({
-      title: track.name,
-      id: track.id,
-      image: track.album.images[0].url,
-      artist: track.artists.map((artist: { name: string }) => artist.name).join(", "),
-      time: msToMinutesAndSeconds(track.duration_ms),
-      album: track.album.name,
+    const total = data.total > MAX_REQ_NUMBER ? MAX_REQ_NUMBER : data.total;
+    const totalArr = [...data.items];
+
+    for (let i = 1; i < total / 100; i++) {
+      const getTracks = (await axios.get(`/api/${searchType}/${id}/${i * 100}`, config(token))).data
+        .items;
+      totalArr.push(...getTracks);
+    }
+
+    result = totalArr.map((list: ITrackDefault, index: number) => ({
+      title: list.track.name,
+      id: list.track.id + list.added_at + index,
+      image: list.track.album.images[0].url,
+      artist: list.track.artists.map((artist: { name: string }) => artist.name).join(", "),
+      time: msToMinutesAndSeconds(list.track.duration_ms),
+      album: list.track.album.name,
       sort: index,
     }));
   }
@@ -94,15 +106,10 @@ export const searchTrackById = async (id: string, searchType: string) => {
 export const searchPlaylistKeyword = async (keyword: string, offset: number) => {
   const token = await getAccessToken();
 
-  const getPlaylist = (
-    await axios.get(`/api/search/${keyword}/${offset * 50}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-  ).data.playlists.items;
+  const getPlaylist = (await axios.get(`/api/search/${keyword}/${offset * 50}`, config(token))).data
+    .playlists.items;
 
-  const result = getPlaylist.map((track: ITrackDefault) => ({
+  const result = getPlaylist.map((track: IPlaylistDefault) => ({
     title: track.name,
     image: track.images[0].url,
     id: track.id,

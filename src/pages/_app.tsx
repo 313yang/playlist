@@ -1,5 +1,4 @@
 import React from "react";
-import dynamic from "next/dynamic";
 import Navbar from "@/components/layout/Navbar";
 import GlobalStyle from "@/styles/GlobalStyle";
 import type { AppProps } from "next/app";
@@ -9,8 +8,7 @@ import theme from "../styles/theme";
 import { QueryClient, Hydrate, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import Sidebar from "@/components/layout/Sidebar";
-
-const Header = dynamic(() => import("@/components/layout/Header"), { ssr: false });
+import Header from "@/components/layout/Header";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = React.useState(

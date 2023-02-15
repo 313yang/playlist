@@ -39,8 +39,8 @@ const nextConfig = {
         destination: `https://www.youtube.com/results?search_query=:query`,
       },
       {
-        source: "/api/track/:id",
-        destination: `https://api.spotify.com/v1/playlists/:id/tracks?limit=100`,
+        source: "/api/playlist/:id/:offset",
+        destination: `https://api.spotify.com/v1/playlists/:id/tracks?limit=100&offset=:offset`,
       },
       {
         source: "/api/album/:id",
