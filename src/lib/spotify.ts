@@ -67,7 +67,10 @@ export const getNewReleases = async () => {
 export const searchTrackById = async (id: string, searchType: string) => {
   const token = await getAccessToken();
 
-  const { data } = await axios.get(`/api/${searchType}/${id}/0`, config(token));
+  const { data } = await axios.get(
+    `/api/${searchType}/${id}${searchType === "playlist" ? "/0" : ""}`,
+    config(token)
+  );
   let result = [];
 
   if (searchType === "album") {
