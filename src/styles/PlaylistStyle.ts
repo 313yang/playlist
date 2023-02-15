@@ -18,11 +18,11 @@ export const PlaylistContainer = styled.main`
   }
 `;
 export const TrackListsStyle = styled.ul`
-  margin: 40px auto;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 40px 12px;
   ${contentWidth};
+  margin-bottom: 20px;
 `;
 export const TrackStyle = styled.li`
   display: flex;

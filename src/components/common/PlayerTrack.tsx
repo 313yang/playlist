@@ -54,7 +54,7 @@ export default function PlayerTrack() {
         </div>
       ) : (
         <div>
-          <div style={{ backgroundColor: "#ddd", width: 40, height: 40, borderRadius: 2 }} />
+          <div style={{ backgroundColor: "#646464", width: 40, height: 40, borderRadius: 2 }} />
           <div style={{ justifyContent: "center", padding: 0 }}>
             <RiPlayListFill />
           </div>

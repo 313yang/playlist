@@ -1,12 +1,17 @@
-import { searchPlaylistKeyword } from "@/lib/spotify";
-import { ReactElement, useEffect } from "react";
+import Spinner from "@/components/common/Spinner";
+import TrackListComponent from "@/components/TrackListComponent";
+import { getNewReleases, searchPlaylistKeyword } from "@/lib/spotify";
+import { TrackListsStyle } from "@/styles/PlaylistStyle";
+import { Fragment, ReactElement, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "react-query";
 
 export default function useInfinitiScroll(keyword: string, title?: string) {
   const fetchPage = async ({ pageParam = 0 }) => {
     // API
-    const data = await searchPlaylistKeyword(keyword, pageParam);
+    let data = [];
+    if (keyword === "newRelease") data = await getNewReleases();
+    else data = await searchPlaylistKeyword(keyword, pageParam);
     const nextPage = data.length >= 50 ? pageParam + 1 : undefined;
 
     return {
@@ -15,7 +20,7 @@ export default function useInfinitiScroll(keyword: string, title?: string) {
       isLast: !nextPage,
     };
   };
-  const { data, isLoading, fetchNextPage, error } = useInfiniteQuery(
+  const { data, isLoading, fetchNextPage, isFetchingNextPage, error } = useInfiniteQuery(
     !!title ? [title, keyword] : keyword,
     fetchPage,
     {
@@ -23,7 +28,7 @@ export default function useInfinitiScroll(keyword: string, title?: string) {
     }
   );
 
-  const ObservationComponent = (): ReactElement => {
+  const FetchTrackListComponent = (): ReactElement => {
     const [ref, inView] = useInView();
 
     useEffect(() => {
@@ -34,14 +39,32 @@ export default function useInfinitiScroll(keyword: string, title?: string) {
 
       if (!isLast && inView) fetchNextPage();
     }, [inView]);
-
-    return <div ref={ref} />;
+    if (error) alert(`Error: ${error}`);
+    return (
+      <>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <TrackListsStyle>
+              {data?.pages.map((page) => (
+                <Fragment key={page.data[0].id}>
+                  {page.data?.map((list: IPlaylist) => (
+                    <TrackListComponent track={list} key={list.id} />
+                  ))}
+                </Fragment>
+              ))}
+            </TrackListsStyle>
+            <div style={{ width: 1260, margin: "20px auto" }} ref={ref}>
+              {isFetchingNextPage && <p>Loading...</p>}
+            </div>
+          </>
+        )}
+      </>
+    );
   };
 
   return {
-    data,
-    isLoading,
-    error,
-    ObservationComponent,
+    FetchTrackListComponent,
   };
 }

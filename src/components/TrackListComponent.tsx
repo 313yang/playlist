@@ -9,7 +9,7 @@ export default function TrackListComponent({ track }: { track: IPlaylist }) {
   const setPlaylist = useSetPlaylist();
 
   const handleSelectPlaylist = () => {
-    router.push(`/playlist/${track.id}`);
+    router.push(`/${track.type}/${track.id}`);
     setPlaylist(track);
   };
   return (

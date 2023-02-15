@@ -3,6 +3,7 @@ interface IPlaylist {
   id: string;
   title: string;
   sub: string;
+  type: string;
 }
 
 interface ITrack {

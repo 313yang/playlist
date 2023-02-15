@@ -9,4 +9,4 @@
 - [x] add playlist
 - [x] add 1 track to playlist
 - [x] clear playlist
-- [ ] add playlist infinity scroll
+- [x] add playlist infinity scroll

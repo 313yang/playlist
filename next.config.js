@@ -11,15 +11,15 @@ const nextConfig = {
       "seeded-session-images.scdn.co",
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/mood",
-        permanent: true,
-      },
-    ];
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "/",
+  //       destination: "/mood",
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
   async rewrites() {
     return [
       {
@@ -41,6 +41,10 @@ const nextConfig = {
       {
         source: "/api/track/:id",
         destination: `https://api.spotify.com/v1/playlists/:id/tracks?limit=100`,
+      },
+      {
+        source: "/api/album/:id",
+        destination: `https://api.spotify.com/v1/albums/:id/`,
       },
     ];
   },

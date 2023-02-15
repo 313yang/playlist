@@ -4,6 +4,7 @@ import axios from "axios";
 interface ITrackDefault {
   name: string;
   id: string;
+  type: string;
   album: {
     album: string;
     images: [{ url: string }];
@@ -15,6 +16,7 @@ interface ITrackDefault {
   owner: {
     display_name: string;
   };
+  track_number: string;
 }
 export const getAccessToken = async () => {
   const { data } = await axios.post(
@@ -47,36 +49,51 @@ export const getNewReleases = async () => {
   const result = getReleaseList.map((list: ITrackDefault) => ({
     image: list.images[0].url,
     title: list.name,
-    sub: list.artists.map((artist) => artist.name).join(","),
+    sub: list.artists.map((artist) => artist.name).join(", "),
     id: list.id,
+    type: list.type,
   }));
   return result;
 };
 
-export const searchTrackById = async (id: string) => {
+export const searchTrackById = async (id: string, searchType: string) => {
   const token = await getAccessToken();
 
-  const { data } = await axios.get(`/api/track/${id}`, {
+  const { data } = await axios.get(`/api/${searchType}/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-
-  let totalSongs = data.items.map(({ track }: { track: ITrackDefault }, index: number) => ({
-    title: track.name,
-    id: track.id,
-    image: track.album.images[0].url,
-    artist: track.artists.map((artist: { name: string }) => artist.name).join(","),
-    time: msToMinutesAndSeconds(track.duration_ms),
-    album: track.album.name,
-    sort: index,
-  }));
-  return totalSongs;
+  let result;
+  if (searchType === "album") {
+    console.log(data.tracks.items);
+    result = data.tracks.items.map((track: ITrackDefault) => ({
+      title: track.name,
+      id: data.id,
+      image: data.images[0].url,
+      artist: track.artists.map((artist: { name: string }) => artist.name).join(", "),
+      time: msToMinutesAndSeconds(track?.duration_ms || 0),
+      album: data.name,
+      sort: track.track_number,
+    }));
+    console.log(result);
+  } else {
+    result = data.items.map(({ track }: { track: ITrackDefault }, index: number) => ({
+      title: track.name,
+      id: track.id,
+      image: track.album.images[0].url,
+      artist: track.artists.map((artist: { name: string }) => artist.name).join(", "),
+      time: msToMinutesAndSeconds(track.duration_ms),
+      album: track.album.name,
+      sort: index,
+    }));
+  }
+  return result;
 };
 
 export const searchPlaylistKeyword = async (keyword: string, offset: number) => {
   const token = await getAccessToken();
-  console.log(offset, "offset");
+
   const getPlaylist = (
     await axios.get(`/api/search/${keyword}/${offset * 50}`, {
       headers: {
@@ -90,6 +107,7 @@ export const searchPlaylistKeyword = async (keyword: string, offset: number) => 
     image: track.images[0].url,
     id: track.id,
     sub: track.owner.display_name,
+    type: track.type,
   }));
 
   return result;
