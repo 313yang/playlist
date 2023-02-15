@@ -9,7 +9,15 @@ export default function TrackListComponent({ track }: { track: IPlaylist }) {
   const setPlaylist = useSetPlaylist();
 
   const handleSelectPlaylist = () => {
-    router.push(`/playlist/${track.id}`);
+    router.push(
+      {
+        pathname: `/${track.type}/${track.id}`,
+        query: {
+          title: track.title,
+        },
+      },
+      `/${track.type}/${track.id}` // as?: url을 해당 url로 마스킹
+    );
     setPlaylist(track);
   };
   return (

@@ -62,6 +62,7 @@ export default function PlayerButtons() {
 
 const Buttons = styled.div`
   margin-right: 80px;
+  margin-left: 120px;
   > button {
     display: flex;
     align-items: center;

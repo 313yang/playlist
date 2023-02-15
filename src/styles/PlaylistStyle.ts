@@ -6,6 +6,7 @@ export const PlaylistContainer = styled.main`
   flex-direction: column;
   margin-left: 220px;
   margin-top: 40px;
+  margin-bottom: 40px;
   > h1 {
     font-size: 24px;
     font-weight: 700;
@@ -18,11 +19,11 @@ export const PlaylistContainer = styled.main`
   }
 `;
 export const TrackListsStyle = styled.ul`
-  margin: 40px auto;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 40px 12px;
   ${contentWidth};
+  margin-bottom: 20px;
 `;
 export const TrackStyle = styled.li`
   display: flex;

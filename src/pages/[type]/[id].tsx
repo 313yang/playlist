@@ -11,8 +11,8 @@ import { usePlaylist } from "@/util/store/usePlaylistStore";
 import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import { shuffleArray } from "@/util/common/shuffleArray";
 
-export default function Playlist({ id }: { id: string }) {
-  const { data, isLoading, error } = useQuery(["playlist", id], () => searchTrackById(id));
+export default function Playlist({ id, type }: { id: string; type: string }) {
+  const { data, isLoading, error } = useQuery([type, id], () => searchTrackById(id, type));
   const playlist = usePlaylist();
   const { tracks } = useTrack();
   const { handlePlayTracks, handleAddTracks } = useTrackActions();
@@ -57,6 +57,11 @@ export default function Playlist({ id }: { id: string }) {
     </PlaylistContainer>
   );
 }
-export const getServerSideProps = async ({ params: { id } }: { params: { id: string } }) => {
-  return { props: { id } };
+export const getServerSideProps = async ({
+  params: { id, type },
+}: {
+  params: { id: string; type: string };
+}) => {
+  console.log(type, id);
+  return { props: { id, type } };
 };

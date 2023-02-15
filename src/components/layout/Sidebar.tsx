@@ -42,7 +42,9 @@ const SidebarStyle = styled.aside<{ sidebarIsOpen: boolean }>`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 260px;
+    width: 270px;
+    transition: all 0.2s ease-in-out;
+    right: ${({ sidebarIsOpen }) => (sidebarIsOpen ? "15px" : "-300px")};
     background-color: #282828f0;
     padding: 23px 0 10px;
     z-index: 1;

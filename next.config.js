@@ -11,12 +11,24 @@ const nextConfig = {
       "seeded-session-images.scdn.co",
     ],
   },
-
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "/",
+  //       destination: "/mood",
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
   async rewrites() {
     return [
       {
-        source: `/api/search/:keyword`,
-        destination: `https://api.spotify.com/v1/search?q=:keyword&type=playlist&limit=50&offset=0`,
+        source: `/api/search/:keyword/:offset`,
+        destination: `https://api.spotify.com/v1/search?q=:keyword&type=playlist&limit=50&offset=:offset`,
+      },
+      {
+        source: `/api/new-releases`,
+        destination: `https://api.spotify.com/v1/browse/new-releases`,
       },
       {
         source: "/api/token",
@@ -27,8 +39,12 @@ const nextConfig = {
         destination: `https://www.youtube.com/results?search_query=:query`,
       },
       {
-        source: "/api/track/:id",
-        destination: `https://api.spotify.com/v1/playlists/:id/tracks?limit=100`,
+        source: "/api/playlist/:id/:offset",
+        destination: `https://api.spotify.com/v1/playlists/:id/tracks?limit=100&offset=:offset`,
+      },
+      {
+        source: "/api/album/:id",
+        destination: `https://api.spotify.com/v1/albums/:id/`,
       },
     ];
   },

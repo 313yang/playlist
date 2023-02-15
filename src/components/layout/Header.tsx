@@ -3,7 +3,9 @@ import PlayerVolume from "@/components/common/PlayerVolume";
 import { IoList } from "react-icons/io5";
 import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
 import PlayerButtons from "../common/PlayerButtons";
-import PlayerTrack from "../common/PlayerTrack";
+import dynamic from "next/dynamic";
+
+const PlayerTrack = dynamic(() => import("../common/PlayerTrack"), { ssr: false });
 
 export default function Header() {
   const { sidebarIsOpen } = usePlayer();
@@ -14,11 +16,13 @@ export default function Header() {
       <PlayerButtons />
       <PlayerTrack />
       <PlayerVolume />
-      <IoList onClick={setSidebarsidebarIsOpen} />
+      <button type="button" onClick={setSidebarsidebarIsOpen}>
+        <IoList />
+      </button>
     </HeaderStyle>
   );
 }
-const HeaderStyle = styled.div<{ sidebarIsOpen: boolean }>`
+const HeaderStyle = styled.header<{ sidebarIsOpen: boolean }>`
   position: sticky;
   top: 0;
   z-index: 1;
@@ -33,8 +37,13 @@ const HeaderStyle = styled.div<{ sidebarIsOpen: boolean }>`
     display: flex;
     align-items: center;
   }
-  > svg {
-    color: ${({ sidebarIsOpen, theme }) => (sidebarIsOpen ? theme.colors.main : "#fff")};
+  > button {
     margin-left: 80px;
+    display: flex;
+    align-items: center;
+    svg {
+      font-size: 20px;
+      color: ${({ sidebarIsOpen, theme }) => (sidebarIsOpen ? theme.colors.main : "#fff")};
+    }
   }
 `;

@@ -30,7 +30,15 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <meta name="title" content="Soundy" />
+          <meta property="og:title" content="Soundy" />
+          <meta property="og:description" content="Make music playlist to your mood" />
+          <meta name="description" content="Make music playlist to your mood" />
+          <meta name="Keywords" content="playlist, music, spotify, youtube" />
+          <meta name="image" content="/favicon.ico" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <body>
           <Main />
           <NextScript />
