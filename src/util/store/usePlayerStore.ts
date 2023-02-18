@@ -3,12 +3,12 @@ import { persist } from "zustand/middleware";
 
 interface IUsePlayerStore {
   volume: number;
-  progress: number;
+  playedSeconds: number;
   isShuffle: boolean;
   sidebarIsOpen: boolean;
 
   setVolume: (val: number) => void;
-  setProgress: (val: number) => void;
+  setPlayedSeconds: (val: number) => void;
   setIsShuffle: () => void;
   setSidebarsidebarIsOpen: () => void;
 }
@@ -16,7 +16,7 @@ const usePlayerStore = create<IUsePlayerStore>()(
   persist(
     (set) => ({
       volume: 1,
-      progress: 0,
+      playedSeconds: 0,
       isShuffle: false,
       sidebarIsOpen: false,
       setSidebarsidebarIsOpen: () => {
@@ -29,8 +29,8 @@ const usePlayerStore = create<IUsePlayerStore>()(
         set({ volume: val });
       },
 
-      setProgress: (val: number) => {
-        set({ progress: val });
+      setPlayedSeconds: (val: number) => {
+        set({ playedSeconds: val });
       },
 
       setIsShuffle: () => {
@@ -47,7 +47,7 @@ const usePlayerStore = create<IUsePlayerStore>()(
 export const usePlayer = () =>
   usePlayerStore((state) => ({
     volume: state.volume,
-    progress: state.progress,
+    playedSeconds: state.playedSeconds,
     isShuffle: state.isShuffle,
     sidebarIsOpen: state.sidebarIsOpen,
   }));
@@ -56,6 +56,6 @@ export const usePlayerActions = () =>
   usePlayerStore((state) => ({
     setSidebarsidebarIsOpen: state.setSidebarsidebarIsOpen,
     setVolume: state.setVolume,
-    setProgress: state.setProgress,
+    setPlayedSeconds: state.setPlayedSeconds,
     setIsShuffle: state.setIsShuffle,
   }));

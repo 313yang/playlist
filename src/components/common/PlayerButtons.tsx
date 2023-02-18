@@ -5,12 +5,20 @@ import { useTrack, useTrackActions } from "@/util/store/useTrackStore";
 
 // const repeatTypeArr = ["none", "repeat", "loop"];
 
-export default function PlayerButtons({ play, setPlay }: { play: boolean; setPlay: any }) {
+export default function PlayerButtons({
+  play,
+  setPlay,
+  videoRef,
+}: {
+  play: boolean;
+  setPlay: any;
+  videoRef: any;
+}) {
   const { handleNextTrack, handlePrevTrack, handleShuffleTracks } = useTrackActions();
   const { track, repeat } = useTrack();
 
   const { setRepeat } = useTrackActions();
-  const { isShuffle } = usePlayer();
+  const { isShuffle, playedSeconds } = usePlayer();
   const { setIsShuffle } = usePlayerActions();
 
   const repeatString = () => {
@@ -48,7 +56,7 @@ export default function PlayerButtons({ play, setPlay }: { play: boolean; setPla
       <Button isShuffle={isShuffle} onClick={handleShuffle}>
         <IoShuffle />
       </Button>
-      <Button onClick={handlePrevTrack}>
+      <Button onClick={() => (playedSeconds > 7 ? videoRef.current.seekTo(0) : handlePrevTrack())}>
         <IoPlayBack />
       </Button>
       <Button onClick={() => setPlay(!play)}>{play && track ? <IoPause /> : <IoPlay />}</Button>
