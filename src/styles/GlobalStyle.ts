@@ -22,7 +22,7 @@ export const currentTrackCSS = css<{ currentTrack: boolean }>`
     transition: opacity 0.2s ease;
     font-size: 22px;
   }
-  background-color: ${({ currentTrack }) => currentTrack && "rgba(255,255,255,0.3)"}!important;
+  background-color: ${({ currentTrack }) => (currentTrack ? "rgba(255,255,255,0.3)" : "#282828")};
 `;
 export const ScrollbarCSS = css`
   ::-webkit-scrollbar {

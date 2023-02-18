@@ -10,7 +10,7 @@ interface IUseTrackStore {
   track: Nullable<ITrack>;
   trackNum: number;
   repeat: string;
-
+  setTracks: (tracks: ITrack[]) => void;
   handleShuffleTracks: (isShuffle: boolean) => void;
   handleAddOneTrack: (track: ITrack) => void;
   handleAddTracks: (tracks: ITrack[]) => void;
@@ -31,6 +31,15 @@ const useTrackStore = create<IUseTrackStore>()(
       trackNum: 0,
       repeat: "none",
 
+      setTracks: (tracks: ITrack[]) =>
+        set((state) => ({
+          ...state,
+          tracks: tracks,
+          trackNum: tracks.findIndex(
+            (list) => list.id === state.track?.id && list.sort === state.track.sort
+          ),
+        })),
+
       handleShuffleTracks: (isShuffle: boolean) =>
         set((state: any) => {
           const arr = !isShuffle
@@ -50,17 +59,13 @@ const useTrackStore = create<IUseTrackStore>()(
         })),
 
       handlePlayTrack: (trackNum: number) =>
-        set((state) => ({
-          trackNum: trackNum,
-          track: state.tracks[trackNum],
-        })),
+        set((state) => ({ ...state, trackNum: trackNum, track: state.tracks[trackNum] })),
       handleRemoveTracks: () =>
         set({
           tracks: [],
           trackNum: 0,
           track: null,
         }),
-
       handleRemoveTrack: (track, index) =>
         set((state) => {
           const filterArr = state.tracks.filter(
@@ -73,18 +78,26 @@ const useTrackStore = create<IUseTrackStore>()(
             track: [...filterArr][trackNum],
           };
         }),
+
       handleAddOneTrack: (track: ITrack) =>
         set((state: any) => {
-          const sortArr = [...state.tracks.sort((a: ITrack, b: ITrack) => a.sort - b.sort)];
-          const setTracksArr = [
-            ...state.tracks,
-            { ...track, sort: sortArr[sortArr.length - 1]?.sort + 1 },
+          const tracks = [...state.tracks];
+          const sortArr = state.tracks.sort((a: ITrack, b: ITrack) => a.sort - b.sort);
+          const addSortArr = [
+            ...tracks,
+            { ...track, sort: tracks.length > 0 ? sortArr[sortArr.length - 1]?.sort + 1 : 1 },
           ];
-          return {
-            tracks: setTracksArr,
-            trackNum: state.tracks.length === 0 ? 0 : state.trackNum,
-            track: state.tracks.length === 0 ? setTracksArr[0] : state.tracks[state.trackNum],
+          let trackState: {
+            tracks: ITrack[];
+            trackNum?: number;
+            track?: ITrack;
+          } = {
+            tracks: addSortArr,
           };
+          if (tracks.length === 0) {
+            trackState = { ...trackState, trackNum: 0, track: addSortArr[0] };
+          }
+          return trackState;
         }),
       handleAddTracks: (tracks) =>
         set((state: any) => {
@@ -129,6 +142,7 @@ export const useTrack = () =>
 
 export const useTrackActions = () =>
   useTrackStore((state) => ({
+    setTracks: state.setTracks,
     handleNextTrack: state.handleNextTrack,
     handlePrevTrack: state.handlePrevTrack,
     handleAddOneTrack: state.handleAddOneTrack,
