@@ -4,17 +4,18 @@ import { IoList } from "react-icons/io5";
 import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
 import PlayerButtons from "../common/PlayerButtons";
 import dynamic from "next/dynamic";
+import { useState } from "react";
 
 const PlayerTrack = dynamic(() => import("../common/PlayerTrack"), { ssr: false });
 
 export default function Header() {
   const { sidebarIsOpen } = usePlayer();
   const { setSidebarsidebarIsOpen } = usePlayerActions();
-
+  const [play, setPlay] = useState(false);
   return (
     <HeaderStyle sidebarIsOpen={sidebarIsOpen}>
-      <PlayerButtons />
-      <PlayerTrack />
+      <PlayerButtons play={play} setPlay={setPlay} />
+      <PlayerTrack play={play} setPlay={setPlay} />
       <PlayerVolume />
       <button type="button" onClick={setSidebarsidebarIsOpen}>
         <IoList />

@@ -5,13 +5,13 @@ import { useTrack, useTrackActions } from "@/util/store/useTrackStore";
 
 // const repeatTypeArr = ["none", "repeat", "loop"];
 
-export default function PlayerButtons() {
+export default function PlayerButtons({ play, setPlay }: { play: boolean; setPlay: any }) {
   const { handleNextTrack, handlePrevTrack, handleShuffleTracks } = useTrackActions();
   const { track, repeat } = useTrack();
 
   const { setRepeat } = useTrackActions();
-  const { play, isShuffle } = usePlayer();
-  const { setIsShuffle, setPlay } = usePlayerActions();
+  const { isShuffle } = usePlayer();
+  const { setIsShuffle } = usePlayerActions();
 
   const repeatString = () => {
     switch (repeat) {

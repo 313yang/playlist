@@ -9,11 +9,11 @@ import ReactPlayer from "react-player";
 import styled from "styled-components";
 import InputRange from "./InputRange";
 
-export default function PlayerTrack() {
+export default function PlayerTrack({ play, setPlay }: { play: boolean; setPlay: any }) {
   const { track, repeat } = useTrack();
   const { handleNextTrack } = useTrackActions();
-  const { progress, volume, play } = usePlayer();
-  const { setProgress, setPlay } = usePlayerActions();
+  const { progress, volume } = usePlayer();
+  const { setProgress } = usePlayerActions();
   const { data } = useGetYoutubeId();
   const videoRef = useRef<any>(null);
 
