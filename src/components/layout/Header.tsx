@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PlayerVolume from "@/components/common/PlayerVolume";
 import { IoList } from "react-icons/io5";
-import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
+import { usePlayer, usePlayerActions, useSidebar } from "@/util/store/usePlayerStore";
 import PlayerButtons from "../common/PlayerButtons";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
@@ -9,8 +9,7 @@ import { useRef, useState } from "react";
 const PlayerTrack = dynamic(() => import("../common/PlayerTrack"), { ssr: false });
 
 export default function Header() {
-  const { sidebarIsOpen } = usePlayer();
-  const { setSidebarsidebarIsOpen } = usePlayerActions();
+  const { sidebarIsOpen, setSidebarsidebarIsOpen } = useSidebar();
   const [play, setPlay] = useState(false);
   const videoRef = useRef<any>(null);
 

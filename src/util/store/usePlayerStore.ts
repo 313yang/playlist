@@ -5,11 +5,13 @@ interface IUsePlayerStore {
   volume: number;
   playedSeconds: number;
   isShuffle: boolean;
-  sidebarIsOpen: boolean;
 
   setVolume: (val: number) => void;
   setPlayedSeconds: (val: number) => void;
   setIsShuffle: () => void;
+}
+interface IUseSidebarStore {
+  sidebarIsOpen: boolean;
   setSidebarsidebarIsOpen: () => void;
 }
 const usePlayerStore = create<IUsePlayerStore>()(
@@ -18,13 +20,7 @@ const usePlayerStore = create<IUsePlayerStore>()(
       volume: 1,
       playedSeconds: 0,
       isShuffle: false,
-      sidebarIsOpen: false,
-      setSidebarsidebarIsOpen: () => {
-        set((state) => ({
-          ...state,
-          sidebarIsOpen: !state.sidebarIsOpen,
-        }));
-      },
+
       setVolume: (val: number) => {
         set({ volume: val });
       },
@@ -43,19 +39,30 @@ const usePlayerStore = create<IUsePlayerStore>()(
     { name: "player" }
   )
 );
-
+const useSidebarStore = create<IUseSidebarStore>((set) => ({
+  sidebarIsOpen: false,
+  setSidebarsidebarIsOpen: () => {
+    set((state) => ({
+      ...state,
+      sidebarIsOpen: !state.sidebarIsOpen,
+    }));
+  },
+}));
 export const usePlayer = () =>
   usePlayerStore((state) => ({
     volume: state.volume,
     playedSeconds: state.playedSeconds,
     isShuffle: state.isShuffle,
-    sidebarIsOpen: state.sidebarIsOpen,
   }));
 
 export const usePlayerActions = () =>
   usePlayerStore((state) => ({
-    setSidebarsidebarIsOpen: state.setSidebarsidebarIsOpen,
     setVolume: state.setVolume,
     setPlayedSeconds: state.setPlayedSeconds,
     setIsShuffle: state.setIsShuffle,
+  }));
+export const useSidebar = () =>
+  useSidebarStore((state) => ({
+    sidebarIsOpen: state.sidebarIsOpen,
+    setSidebarsidebarIsOpen: state.setSidebarsidebarIsOpen,
   }));

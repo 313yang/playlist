@@ -1,11 +1,11 @@
-import { usePlayer } from "@/util/store/usePlayerStore";
+import { useSidebar } from "@/util/store/usePlayerStore";
 import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import styled from "styled-components";
 import UpNextTrackList from "../UpNextTrackList";
 import UpNextTrackRender from "../UpNextTrackRender";
 
 export default function Sidebar() {
-  const { sidebarIsOpen } = usePlayer();
+  const { sidebarIsOpen } = useSidebar();
   const { tracks } = useTrack();
   const { handleRemoveTracks } = useTrackActions();
 

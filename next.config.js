@@ -34,10 +34,7 @@ const nextConfig = {
         source: "/api/token",
         destination: `https://accounts.spotify.com/api/token`,
       },
-      {
-        source: "/api/video/:query",
-        destination: `https://www.youtube.com/results?search_query=:query`,
-      },
+
       {
         source: "/api/playlist/:id/:offset",
         destination: `https://api.spotify.com/v1/playlists/:id/tracks?limit=100&offset=:offset`,
