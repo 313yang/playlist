@@ -3,6 +3,7 @@ import TrackListComponent from "@/components/TrackListComponent";
 import { getNewReleases, searchPlaylistKeyword } from "@/lib/spotify";
 import { TrackListsStyle } from "@/styles/PlaylistStyle";
 import { Fragment, ReactElement, useEffect } from "react";
+import { toast } from "react-hot-toast";
 import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "react-query";
 
@@ -39,7 +40,7 @@ export default function useInfinitiScroll(keyword: string, title?: string) {
 
       if (!isLast && inView) fetchNextPage();
     }, [inView]);
-    if (error) alert(`Error: ${error}`);
+    if (error) toast.error(`Error: ${error}`);
     return (
       <>
         {isLoading ? (

@@ -33,4 +33,22 @@ export const CurrentTrackContainer = styled.div`
       }
     }
   }
+  @media screen and (max-width: 1025px) {
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    > img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+    > div {
+      text-align: center;
+      h1 {
+        margin-bottom: 12px;
+      }
+    }
+  }
 `;

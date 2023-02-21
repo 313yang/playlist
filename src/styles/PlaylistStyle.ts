@@ -4,9 +4,10 @@ import { contentWidth, currentTrackCSS, textHidden } from "./GlobalStyle";
 export const PlaylistContainer = styled.main`
   display: flex;
   flex-direction: column;
-  margin-left: 220px;
+  padding-left: 220px;
   margin-top: 40px;
   margin-bottom: 40px;
+  width: calc(100% - 220px);
   > h1 {
     font-size: 24px;
     font-weight: 700;
@@ -17,6 +18,14 @@ export const PlaylistContainer = styled.main`
     ${contentWidth};
     font-size: 12px;
   }
+  @media screen and (max-width: 1025px) {
+    width: 100%;
+    padding-left: 0;
+    > h1,
+    > p {
+      width: 90%;
+    }
+  }
 `;
 export const TrackListsStyle = styled.ul`
   display: grid;
@@ -24,6 +33,12 @@ export const TrackListsStyle = styled.ul`
   gap: 40px 12px;
   ${contentWidth};
   margin-bottom: 20px;
+  @media screen and (max-width: 1025px) {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: inherit;
+    width: 90%;
+  }
 `;
 
 export const TrackStyle = styled.li`
@@ -33,6 +48,7 @@ export const TrackStyle = styled.li`
   > img {
     width: 200px;
     height: 200px;
+    object-fit: cover;
     border-radius: 4px;
   }
   > h5 {
@@ -64,6 +80,28 @@ export const TrackStyle = styled.li`
   &:hover {
     > div {
       opacity: 1;
+    }
+  }
+  @media screen and (max-width: 1025px) {
+    flex-grow: 1;
+    max-width: 230px;
+    > img {
+      width: 100%;
+    }
+    > h5 {
+      max-width: 230px;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    max-width: 160px;
+    > img {
+      height: 160px;
+    }
+    > h5 {
+      width: 160px;
+    }
+    > div {
+      width: 160px;
     }
   }
 `;

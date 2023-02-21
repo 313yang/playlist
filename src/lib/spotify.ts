@@ -1,5 +1,6 @@
 import { msToMinutesAndSeconds } from "@/util/common/durationTime";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const MAX_REQ_NUMBER = 1000;
 
@@ -65,6 +66,7 @@ export const getNewReleases = async () => {
 };
 
 export const searchTrackById = async (id: string, searchType: string) => {
+  let result = [];
   try {
     const token = await getAccessToken();
 
@@ -72,7 +74,6 @@ export const searchTrackById = async (id: string, searchType: string) => {
       `/api/${searchType}/${id}${searchType === "playlist" ? "/0" : ""}`,
       config(token)
     );
-    let result = [];
 
     if (searchType === "album") {
       result = data.tracks.items.map((track: IPlaylistDefault) => ({
@@ -109,22 +110,31 @@ export const searchTrackById = async (id: string, searchType: string) => {
     return result;
   } catch (err) {
     console.log(err);
+    toast.error("Error: Fail to get track lists 😥");
+    return result;
   }
 };
 
 export const searchPlaylistKeyword = async (keyword: string, offset: number) => {
-  const token = await getAccessToken();
+  try {
+    const token = await getAccessToken();
 
-  const getPlaylist = (await axios.get(`/api/search/${keyword}/${offset * 50}`, config(token))).data
-    .playlists.items;
+    const getPlaylist = (await axios.get(`/api/search/${keyword}/${offset * 50}`, config(token)))
+      .data.playlists.items;
 
-  const result = getPlaylist.map((track: IPlaylistDefault) => ({
-    title: track.name,
-    image: track.images[0].url,
-    id: track.id,
-    sub: track.owner.display_name,
-    type: track.type,
-  }));
+    const result = getPlaylist
+      .filter((track: IPlaylistDefault) => track.images.length > 0)
+      .map((track: IPlaylistDefault) => ({
+        title: track.name,
+        image: track.images[0].url,
+        id: track.id,
+        sub: track.owner.display_name,
+        type: track.type,
+      }));
 
-  return result;
+    return result;
+  } catch (err) {
+    console.log(err);
+    toast.error("Error: Fail to get playlists 😥");
+  }
 };
