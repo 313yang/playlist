@@ -10,6 +10,7 @@ import { useQuery } from "react-query";
 import { usePlaylist } from "@/util/store/usePlaylistStore";
 import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import { shuffleArray } from "@/util/common/shuffleArray";
+import { toast } from "react-hot-toast";
 
 export default function Playlist({ id, type }: { id: string; type: string }) {
   const { data, isLoading, error } = useQuery([type, id], () => searchTrackById(id, type));
@@ -28,6 +29,7 @@ export default function Playlist({ id, type }: { id: string; type: string }) {
     if (tracks.length > 0) handleAddTracks(data);
     else handleSetTracks();
   };
+  if (error) toast.error(`Error : ${error}`);
 
   return (
     <PlaylistContainer>

@@ -1,10 +1,11 @@
-import { usePlayer } from "@/util/store/usePlayerStore";
+import { useSidebar } from "@/util/store/usePlayerStore";
 import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import styled from "styled-components";
-import UpNextTracks from "../UpNextTracks";
+import UpNextTrackList from "../UpNextTrackList";
+import UpNextTrackRender from "../UpNextTrackRender";
 
 export default function Sidebar() {
-  const { sidebarIsOpen } = usePlayer();
+  const { sidebarIsOpen } = useSidebar();
   const { tracks } = useTrack();
   const { handleRemoveTracks } = useTrackActions();
 
@@ -18,8 +19,16 @@ export default function Sidebar() {
       </div>
       <ul>
         {tracks.map((track, index) => (
-          <UpNextTracks track={track} index={index} key={track.id + track.sort} />
+          <UpNextTrackList
+            draggable={true}
+            track={track}
+            index={index}
+            key={track.id + track.sort + "I" + index}
+          >
+            <UpNextTrackRender track={track} index={index} />
+          </UpNextTrackList>
         ))}
+        <UpNextTrackList index={tracks.length} draggable={false}></UpNextTrackList>
       </ul>
     </SidebarStyle>
   );

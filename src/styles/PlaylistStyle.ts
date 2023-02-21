@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { contentWidth } from "./GlobalStyle";
+import { contentWidth, currentTrackCSS, textHidden } from "./GlobalStyle";
 
 export const PlaylistContainer = styled.main`
   display: flex;
@@ -25,6 +25,7 @@ export const TrackListsStyle = styled.ul`
   ${contentWidth};
   margin-bottom: 20px;
 `;
+
 export const TrackStyle = styled.li`
   display: flex;
   flex-direction: column;
@@ -63,6 +64,68 @@ export const TrackStyle = styled.li`
   &:hover {
     > div {
       opacity: 1;
+    }
+  }
+`;
+export const TrackListStyle = styled.li<{ currentTrack: boolean }>`
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 5px;
+  position: relative;
+  ${currentTrackCSS};
+  > button {
+    position: absolute;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    padding: 0;
+    background-color: #fff;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    top: 0;
+    left: 0;
+
+    > svg {
+      color: ${({ theme }) => theme.colors.main};
+      font-size: 20px;
+    }
+  }
+  :hover {
+    > button {
+      display: flex;
+    }
+  }
+  > img {
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  p {
+    font-size: 12px;
+    font-weight: 500;
+  }
+  > div {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-bottom: ${({ currentTrack }) => !currentTrack && "1px solid #525252"};
+    > div {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      > p {
+        width: 145px;
+        ${textHidden}
+        :last-child {
+          opacity: 0.6;
+          margin-top: 5px;
+        }
+      }
     }
   }
 `;

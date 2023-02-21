@@ -3,41 +3,30 @@ import { persist } from "zustand/middleware";
 
 interface IUsePlayerStore {
   volume: number;
-  progress: number;
-  play: boolean;
+  playedSeconds: number;
   isShuffle: boolean;
-  sidebarIsOpen: boolean;
 
   setVolume: (val: number) => void;
-  setProgress: (val: number) => void;
-  setPlay: (val: boolean) => void;
+  setPlayedSeconds: (val: number) => void;
   setIsShuffle: () => void;
+}
+interface IUseSidebarStore {
+  sidebarIsOpen: boolean;
   setSidebarsidebarIsOpen: () => void;
 }
 const usePlayerStore = create<IUsePlayerStore>()(
   persist(
     (set) => ({
       volume: 1,
-      progress: 0,
-      play: false,
+      playedSeconds: 0,
       isShuffle: false,
-      sidebarIsOpen: false,
-      setSidebarsidebarIsOpen: () => {
-        set((state) => ({
-          ...state,
-          sidebarIsOpen: !state.sidebarIsOpen,
-        }));
-      },
+
       setVolume: (val: number) => {
         set({ volume: val });
       },
 
-      setProgress: (val: number) => {
-        set({ progress: val });
-      },
-
-      setPlay: (val: boolean) => {
-        set({ play: val });
+      setPlayedSeconds: (val: number) => {
+        set({ playedSeconds: val });
       },
 
       setIsShuffle: () => {
@@ -50,21 +39,30 @@ const usePlayerStore = create<IUsePlayerStore>()(
     { name: "player" }
   )
 );
-
+const useSidebarStore = create<IUseSidebarStore>((set) => ({
+  sidebarIsOpen: false,
+  setSidebarsidebarIsOpen: () => {
+    set((state) => ({
+      ...state,
+      sidebarIsOpen: !state.sidebarIsOpen,
+    }));
+  },
+}));
 export const usePlayer = () =>
   usePlayerStore((state) => ({
     volume: state.volume,
-    progress: state.progress,
-    play: state.play,
+    playedSeconds: state.playedSeconds,
     isShuffle: state.isShuffle,
-    sidebarIsOpen: state.sidebarIsOpen,
   }));
 
 export const usePlayerActions = () =>
   usePlayerStore((state) => ({
-    setSidebarsidebarIsOpen: state.setSidebarsidebarIsOpen,
     setVolume: state.setVolume,
-    setProgress: state.setProgress,
-    setPlay: state.setPlay,
+    setPlayedSeconds: state.setPlayedSeconds,
     setIsShuffle: state.setIsShuffle,
+  }));
+export const useSidebar = () =>
+  useSidebarStore((state) => ({
+    sidebarIsOpen: state.sidebarIsOpen,
+    setSidebarsidebarIsOpen: state.setSidebarsidebarIsOpen,
   }));

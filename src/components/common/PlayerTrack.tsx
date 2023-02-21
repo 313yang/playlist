@@ -1,22 +1,30 @@
 import { textHidden } from "@/styles/GlobalStyle";
+import { msToMinutesAndSeconds } from "@/util/common/durationTime";
 import { useGetYoutubeId } from "@/util/hooks/useGetYoutubeId";
 import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
 import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { RiPlayListFill } from "react-icons/ri";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
 import InputRange from "./InputRange";
 
-export default function PlayerTrack() {
+export default function PlayerTrack({
+  play,
+  setPlay,
+  videoRef,
+}: {
+  play: boolean;
+  setPlay: any;
+  videoRef: any;
+}) {
   const { track, repeat } = useTrack();
   const { handleNextTrack } = useTrackActions();
-  const { progress, volume, play } = usePlayer();
-  const { setProgress, setPlay } = usePlayerActions();
+  const { volume, playedSeconds } = usePlayer();
+  const { setPlayedSeconds } = usePlayerActions();
   const { data } = useGetYoutubeId();
-  const videoRef = useRef<any>(null);
-
+  const [progress, setProgress] = useState(0);
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProgress(+e.target.value);
     videoRef.current.seekTo(+e.target.value);
@@ -37,9 +45,14 @@ export default function PlayerTrack() {
               value={progress}
               handleOnChange={handleOnChange}
             />
+            <span className="hover_time">
+              <p>{msToMinutesAndSeconds(Math.floor(playedSeconds * 1000))}</p>
+              <p>{track.time}</p>
+            </span>
           </div>
 
           <ReactPlayer
+            id={"reactPlayer"}
             ref={videoRef}
             url={`https://youtu.be/${data}`}
             width="0"
@@ -49,7 +62,10 @@ export default function PlayerTrack() {
             playing={play}
             onReady={() => setPlay(true)}
             onEnded={handleNextTrack}
-            onProgress={(e) => setProgress(e.played)}
+            onProgress={(e) => {
+              setProgress(e.played);
+              setPlayedSeconds(e.playedSeconds);
+            }}
           />
         </div>
       ) : (
@@ -80,6 +96,23 @@ const PlayerTrackWrap = styled.div`
       align-items: center;
       justify-content: space-between;
       padding-top: 5px;
+      position: relative;
+      .hover_time {
+        display: none;
+        justify-content: space-between;
+        position: absolute;
+        bottom: 5px;
+        width: 100%;
+        padding: 0 5px;
+        font-size: 10px;
+        font-weight: 500;
+        opacity: 0.4;
+      }
+      :hover {
+        .hover_time {
+          display: flex;
+        }
+      }
       > h6 {
         font-size: 12px;
         font-weight: 500;

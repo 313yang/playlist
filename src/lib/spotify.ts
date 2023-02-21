@@ -65,45 +65,51 @@ export const getNewReleases = async () => {
 };
 
 export const searchTrackById = async (id: string, searchType: string) => {
-  const token = await getAccessToken();
+  try {
+    const token = await getAccessToken();
 
-  const { data } = await axios.get(
-    `/api/${searchType}/${id}${searchType === "playlist" ? "/0" : ""}`,
-    config(token)
-  );
-  let result = [];
+    const { data } = await axios.get(
+      `/api/${searchType}/${id}${searchType === "playlist" ? "/0" : ""}`,
+      config(token)
+    );
+    let result = [];
 
-  if (searchType === "album") {
-    result = data.tracks.items.map((track: IPlaylistDefault) => ({
-      title: track.name,
-      id: data.id,
-      image: data.images[0].url,
-      artist: track.artists.map((artist: { name: string }) => artist.name).join(", "),
-      time: msToMinutesAndSeconds(track?.duration_ms || 0),
-      album: data.name,
-      sort: track.track_number,
-    }));
-  } else {
-    const total = data.total > MAX_REQ_NUMBER ? MAX_REQ_NUMBER : data.total;
-    const totalArr = [...data.items];
+    if (searchType === "album") {
+      result = data.tracks.items.map((track: IPlaylistDefault) => ({
+        title: track.name,
+        id: data.id,
+        image: data.images[0].url,
+        artist: track.artists.map((artist: { name: string }) => artist.name).join(", "),
+        time: msToMinutesAndSeconds(track?.duration_ms || 0),
+        album: data.name,
+        sort: track.track_number,
+      }));
+    } else {
+      const total = data.total > MAX_REQ_NUMBER ? MAX_REQ_NUMBER : data.total;
+      const totalArr = [...data.items];
 
-    for (let i = 1; i < total / 100; i++) {
-      const getTracks = (await axios.get(`/api/${searchType}/${id}/${i * 100}`, config(token))).data
-        .items;
-      totalArr.push(...getTracks);
+      for (let i = 1; i < total / 100; i++) {
+        const getTracks = (await axios.get(`/api/${searchType}/${id}/${i * 100}`, config(token)))
+          .data.items;
+        totalArr.push(...getTracks);
+      }
+
+      result = totalArr
+        .filter((list) => !!list.track && list.track.album.images.length > 0)
+        .map((list: ITrackDefault, index: number) => ({
+          title: list.track.name,
+          id: list.track.id + list.added_at + index,
+          image: list.track.album.images[0].url,
+          artist: list.track.artists.map((artist: { name: string }) => artist.name).join(", "),
+          time: msToMinutesAndSeconds(list.track.duration_ms),
+          album: list.track.album.name,
+          sort: index,
+        }));
     }
-
-    result = totalArr.map((list: ITrackDefault, index: number) => ({
-      title: list.track.name,
-      id: list.track.id + list.added_at + index,
-      image: list.track.album.images[0].url,
-      artist: list.track.artists.map((artist: { name: string }) => artist.name).join(", "),
-      time: msToMinutesAndSeconds(list.track.duration_ms),
-      album: list.track.album.name,
-      sort: index,
-    }));
+    return result;
+  } catch (err) {
+    console.log(err);
   }
-  return result;
 };
 
 export const searchPlaylistKeyword = async (keyword: string, offset: number) => {
