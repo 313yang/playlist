@@ -13,8 +13,9 @@ import { useRouter } from "next/router";
 import toast, { Toaster } from "react-hot-toast";
 import { usePlaylist } from "@/util/store/usePlaylistStore";
 export default function App({ Component, pageProps }: AppProps) {
-  const { query, pathname } = useRouter();
+  const { query } = useRouter();
   const playlist = usePlaylist();
+
   const [queryClient] = React.useState(
     () =>
       new QueryClient({
@@ -37,9 +38,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <GlobalStyle />
           <SEO
             title={
-              !!query.title || !!query.keyword
-                ? query.title || `Searching - ${query.keyword}`
-                : `Soundy ${pathname !== "/" ? `- ${playlist?.title}` : ""}`
+              !!query.keyword
+                ? `Searching - ${query.keyword}`
+                : `Soundy ${!!query.id ? `- ${playlist?.title}` : ""}`
             }
           />
           <Header />

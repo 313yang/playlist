@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PlayerVolume from "@/components/common/PlayerVolume";
 import { IoList } from "react-icons/io5";
-import { usePlayer, usePlayerActions, useSidebar } from "@/util/store/usePlayerStore";
+import { useSidebar } from "@/util/store/usePlayerStore";
 import PlayerButtons from "../common/PlayerButtons";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
