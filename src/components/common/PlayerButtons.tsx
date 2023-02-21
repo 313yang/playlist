@@ -85,6 +85,47 @@ const Buttons = styled.div`
       }
     }
   }
+  @media screen and (max-width: 1025px) {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+    > button {
+      svg {
+        width: 16px;
+        font-size: 16px;
+      }
+      :nth-child(3) {
+        > svg {
+          width: 20px;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 1025px) {
+    margin-left: 61%;
+    left: 0;
+    transform: translate(0, -50%);
+    > button {
+      svg {
+        width: 16px;
+        font-size: 16px;
+      }
+      &:first-child,
+      &:last-child {
+        display: none;
+      }
+
+      :nth-child(3) {
+        > svg {
+          width: 18px;
+          font-size: 20px;
+        }
+      }
+    }
+  }
 `;
 const Button = styled.button.attrs({ type: "button" })<{ isShuffle?: boolean }>`
   > svg {

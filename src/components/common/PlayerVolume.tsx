@@ -67,4 +67,7 @@ const VolumeWrap = styled.div`
       border-radius: 50%;
     }
   }
+  @media screen and (max-width: 1025px) {
+    display: none !important;
+  }
 `;

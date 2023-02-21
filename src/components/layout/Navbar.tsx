@@ -4,12 +4,14 @@ import { useState } from "react";
 import styled from "styled-components";
 import icon from "public/icon.svg";
 import Image from "next/image";
+import { useSidebar } from "@/util/store/usePlayerStore";
 
 export default function Navbar() {
   const router = useRouter();
+  const { navbarIsOpen } = useSidebar();
   const [keyword, setKeyword] = useState("");
   return (
-    <NavStyle>
+    <NavStyle isShow={navbarIsOpen}>
       <Link href={"/"}>
         <Image src={icon} width="20" height="20" alt="logo" />
         <h1>Soundy</h1>
@@ -41,7 +43,7 @@ export default function Navbar() {
   );
 }
 
-const NavStyle = styled.nav`
+const NavStyle = styled.nav<{ isShow: boolean }>`
   width: 220px;
   height: 100vh;
   border-right: 1px solid #525252;
@@ -87,5 +89,10 @@ const NavStyle = styled.nav`
         margin-bottom: 20px;
       }
     }
+  }
+  @media screen and (max-width: 1025px) {
+    top: 50px;
+    height: calc(100vh - 50px);
+    left: ${({ isShow }) => (isShow ? 0 : "-220px")};
   }
 `;

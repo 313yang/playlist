@@ -154,4 +154,26 @@ const PlayerTrackWrap = styled.div`
       }
     }
   }
+  @media screen and (max-width: 1025px) {
+    > div {
+      > div {
+        > h6 {
+          text-align: start;
+          width: 210px;
+          margin-right: 170px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 500px) {
+    width: 70vw;
+    > div {
+      > div {
+        > h6 {
+          width: 33vw;
+          margin-right: 23vw;
+        }
+      }
+    }
+  }
 `;

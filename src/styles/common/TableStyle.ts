@@ -18,7 +18,15 @@ export const TableStyle = styled.table`
       border-radius: 2px;
     }
   }
-  tbody tr {
+  @media screen and (max-width: 1025px) {
+    width: 90%;
+
+    tr {
+      th:nth-child(3),
+      td:nth-child(3) {
+        display: none;
+      }
+    }
   }
 `;
 export const TrStyle = styled.tr<{ currentTrack: boolean }>`

@@ -12,7 +12,9 @@ interface IUsePlayerStore {
 }
 interface IUseSidebarStore {
   sidebarIsOpen: boolean;
+  navbarIsOpen: boolean;
   setSidebarsidebarIsOpen: () => void;
+  setNavbarsidebarIsOpen: () => void;
 }
 const usePlayerStore = create<IUsePlayerStore>()(
   persist(
@@ -41,10 +43,17 @@ const usePlayerStore = create<IUsePlayerStore>()(
 );
 const useSidebarStore = create<IUseSidebarStore>((set) => ({
   sidebarIsOpen: false,
+  navbarIsOpen: false,
   setSidebarsidebarIsOpen: () => {
     set((state) => ({
       ...state,
       sidebarIsOpen: !state.sidebarIsOpen,
+    }));
+  },
+  setNavbarsidebarIsOpen: () => {
+    set((state) => ({
+      ...state,
+      navbarIsOpen: !state.navbarIsOpen,
     }));
   },
 }));
@@ -65,4 +74,6 @@ export const useSidebar = () =>
   useSidebarStore((state) => ({
     sidebarIsOpen: state.sidebarIsOpen,
     setSidebarsidebarIsOpen: state.setSidebarsidebarIsOpen,
+    navbarIsOpen: state.navbarIsOpen,
+    setNavbarsidebarIsOpen: state.setNavbarsidebarIsOpen,
   }));
