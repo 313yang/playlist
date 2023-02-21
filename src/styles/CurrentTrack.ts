@@ -35,6 +35,8 @@ export const CurrentTrackContainer = styled.div`
   }
   @media screen and (max-width: 1025px) {
     width: 90%;
+  }
+  @media screen and (max-width: 700px) {
     flex-direction: column;
     align-items: center;
     > img {
