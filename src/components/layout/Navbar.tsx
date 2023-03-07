@@ -38,6 +38,9 @@ export default function Navbar() {
         <li>
           <Link href={"/genre"}>Genre</Link>
         </li>
+        <li>
+          <Link href={"/featured"}>Featured</Link>
+        </li>
       </ul>
     </NavStyle>
   );

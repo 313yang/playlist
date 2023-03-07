@@ -36,7 +36,10 @@ const nextConfig = {
         source: "/api/token",
         destination: `https://accounts.spotify.com/api/token`,
       },
-
+      {
+        source: "/api/featured/:offset",
+        destination: `https://api.spotify.com/v1/browse/featured-playlists?limit=50&offset=:offset`,
+      },
       {
         source: "/api/playlist/:id/:offset",
         destination: `https://api.spotify.com/v1/playlists/:id/tracks?limit=100&offset=:offset`,

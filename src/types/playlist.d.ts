@@ -1,6 +1,6 @@
 interface IPlaylist {
   image: string;
-  id: string;
+  id: readonly string;
   title: string;
   sub: string;
   type: string;
@@ -8,7 +8,7 @@ interface IPlaylist {
 
 interface ITrack {
   image: string;
-  id: string;
+  id: readonly string;
   title: string;
   artist: string;
   time: string;

@@ -1,6 +1,6 @@
 import Spinner from "@/components/common/Spinner";
 import TrackListComponent from "@/components/TrackListComponent";
-import { getNewReleases, searchPlaylistKeyword } from "@/lib/spotify";
+import { getFeatured, getNewReleases, searchPlaylistKeyword } from "@/lib/spotify";
 import { TrackListsStyle } from "@/styles/PlaylistStyle";
 import { Fragment, ReactElement, useEffect } from "react";
 import { toast } from "react-hot-toast";
@@ -12,6 +12,7 @@ export default function useInfinitiScroll(keyword: string, title?: string) {
     // API
     let data = [];
     if (keyword === "newRelease") data = await getNewReleases();
+    else if (keyword === "featured") data = await getFeatured(pageParam);
     else data = await searchPlaylistKeyword(keyword, pageParam);
     const nextPage = data.length >= 50 ? pageParam + 1 : undefined;
 
