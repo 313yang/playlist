@@ -64,7 +64,23 @@ export const getNewReleases = async () => {
   }));
   return result;
 };
+export const getFeatured = async (offset: number) => {
+  const token = await getAccessToken();
 
+  const getReleaseList = (await axios.get(`/api/featured/${offset * 50}`, config(token))).data
+    .playlists.items;
+
+  const result = getReleaseList
+    // .filter((track: IPlaylistDefault) => track.images.length > 0)
+    .map((track: IPlaylistDefault) => ({
+      title: track.name,
+      image: track.images[0].url,
+      id: track.id,
+      sub: track.owner.display_name,
+      type: track.type,
+    }));
+  return result;
+};
 export const searchTrackById = async (id: string, searchType: string) => {
   let result = [];
   try {

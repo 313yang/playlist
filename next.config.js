@@ -11,17 +11,10 @@ const nextConfig = {
       "seed-mix-image.spotifycdn.com",
       "mosaic.scdn.co",
       "seeded-session-images.scdn.co",
+      "charts-images.scdn.co",
     ],
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: "/",
-  //       destination: "/mood",
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
+
   async rewrites() {
     return [
       {
@@ -36,7 +29,10 @@ const nextConfig = {
         source: "/api/token",
         destination: `https://accounts.spotify.com/api/token`,
       },
-
+      {
+        source: "/api/featured/:offset",
+        destination: `https://api.spotify.com/v1/browse/featured-playlists?limit=50&offset=:offset`,
+      },
       {
         source: "/api/playlist/:id/:offset",
         destination: `https://api.spotify.com/v1/playlists/:id/tracks?limit=100&offset=:offset`,

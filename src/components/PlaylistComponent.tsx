@@ -1,7 +1,7 @@
 import KeywordContainer from "@/components/KeywordContainer";
 import { searchPlaylistKeyword } from "@/lib/spotify";
 import { PlaylistContainer } from "@/styles/PlaylistStyle";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { dehydrate, QueryClient } from "react-query";
 import useInfinitiScroll from "@/util/hooks/useInfinityScroll";
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   keywords: string[];
 }
 
-export default function PlaylistComponent({ type, keywords }: Props) {
+const PlaylistComponent = ({ type, keywords }: Props) => {
   const [selected, setSelected] = useState(keywords[0]);
   const { FetchTrackListComponent } = useInfinitiScroll(selected, type.title);
 
@@ -21,7 +21,7 @@ export default function PlaylistComponent({ type, keywords }: Props) {
       {<FetchTrackListComponent />}
     </PlaylistContainer>
   );
-}
+};
 
 export async function getServerSideProps(props: Props) {
   const queryClient = new QueryClient();
@@ -31,3 +31,4 @@ export async function getServerSideProps(props: Props) {
 
   return { props: { ...props, dehydratedState: dehydrate(queryClient) } };
 }
+export default memo(PlaylistComponent);

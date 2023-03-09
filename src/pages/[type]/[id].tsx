@@ -1,4 +1,3 @@
-import Spinner from "@/components/common/Spinner";
 import TrackTable from "@/components/TrackTable";
 import { searchTrackById } from "@/lib/spotify";
 import { FlatButton } from "@/styles/common/ButtonStyle";
@@ -11,6 +10,7 @@ import { usePlaylist } from "@/util/store/usePlaylistStore";
 import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import { shuffleArray } from "@/util/common/shuffleArray";
 import { toast } from "react-hot-toast";
+import TrackTableSkeleton from "@/components/skeleton/TrackTableThumbnail";
 
 export default function Playlist({ id, type }: { id: string; type: string }) {
   const { data, isLoading, error } = useQuery([type, id], () => searchTrackById(id, type));
@@ -55,7 +55,7 @@ export default function Playlist({ id, type }: { id: string; type: string }) {
           </div>
         </CurrentTrackContainer>
       )}
-      {isLoading ? <Spinner /> : <TrackTable playlist={data} />}
+      {isLoading ? <TrackTableSkeleton /> : <TrackTable playlist={data} />}
     </PlaylistContainer>
   );
 }
