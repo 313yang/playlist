@@ -64,7 +64,6 @@ export default function useInfinitiScroll(keyword: string, title?: string) {
     if (isLoading)
       return (
         <TrackListsStyle>
-          <Spinner />
           {Array.from(Array(50), (_, index) => index + 1).map((list) => (
             <TrackSkeleton key={list} />
           ))}
@@ -85,8 +84,8 @@ export default function useInfinitiScroll(keyword: string, title?: string) {
             </Fragment>
           ))}
         </TrackListsStyle>
-        <div style={{ width: 1260, margin: "20px auto" }} ref={ref}>
-          {isFetchingNextPage && <p>Loading...</p>}
+        <div style={{ width: 1260, margin: "0 auto" }} ref={ref}>
+          {isFetchingNextPage && <Spinner />}
         </div>
       </>
     );
