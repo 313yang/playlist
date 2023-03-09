@@ -6,6 +6,12 @@ import icon from "public/icon.svg";
 import Image from "next/image";
 import { useSidebar } from "@/util/store/usePlayerStore";
 
+const routerArr = [
+  { path: "/", title: "New" },
+  { path: "/mood", title: "Mood" },
+  { path: "/genre", title: "Genre" },
+  { path: "/featured", title: "Featured" },
+];
 export default function Navbar() {
   const router = useRouter();
   const { navbarIsOpen } = useSidebar();
@@ -29,18 +35,11 @@ export default function Navbar() {
         />
       </form>
       <ul>
-        <li>
-          <Link href={"/"}>New</Link>
-        </li>
-        <li>
-          <Link href={"/mood"}>Mood</Link>
-        </li>
-        <li>
-          <Link href={"/genre"}>Genre</Link>
-        </li>
-        <li>
-          <Link href={"/featured"}>Featured</Link>
-        </li>
+        {routerArr.map((list) => (
+          <li key={list.title}>
+            <Link href={list.path}>{list.title}</Link>
+          </li>
+        ))}
       </ul>
     </NavStyle>
   );
@@ -78,6 +77,9 @@ const NavStyle = styled.nav<{ isShow: boolean }>`
     margin-bottom: 24px;
     ::placeholder {
       opacity: 0.4;
+    }
+    :focus {
+      border: 1px solid ${({ theme }) => theme.colors.main};
     }
   }
   > ul {

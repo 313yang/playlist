@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "react-query";
 import TrackSkeleton from "@/components/skeleton/TrackThumbnail";
-import useThrottled from "./useThrottle";
+import { throttled } from "../common/debounceThrottle";
 
 const TrackListComponent = React.lazy(() => import("../../components/TrackListComponent"));
 
@@ -21,7 +21,6 @@ const apiKeyword = (keyword: string, pageParam: number) => {
   }
 };
 export default function useInfinitiScroll(keyword: string, title?: string) {
-  const handleThrottle = useThrottled();
   const fetchPage = async ({ pageParam = 0 }) => {
     // API
     const data = await apiKeyword(keyword, pageParam);
@@ -57,7 +56,7 @@ export default function useInfinitiScroll(keyword: string, title?: string) {
       const isLast = data?.pages[pageLastIdx].isLast;
 
       if (!isLast && inView) {
-        handleThrottle(fetchNext);
+        throttled(fetchNext);
       }
     }, [inView]);
 

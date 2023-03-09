@@ -11,17 +11,10 @@ const nextConfig = {
       "seed-mix-image.spotifycdn.com",
       "mosaic.scdn.co",
       "seeded-session-images.scdn.co",
+      "charts-images.scdn.co",
     ],
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: "/",
-  //       destination: "/mood",
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
+
   async rewrites() {
     return [
       {
