@@ -1,17 +1,17 @@
 interface IPlaylist {
-  image: string;
+  image: readonly string;
   id: readonly string;
-  title: string;
-  sub: string;
+  title: readonly string;
+  sub: readonly string;
   type: string;
 }
 
 interface ITrack {
-  image: string;
+  image: readonly string;
   id: readonly string;
-  title: string;
-  artist: string;
-  time: string;
-  album: string;
+  title: readonly string;
+  artist: readonly string;
+  time: readonly string;
+  album: readonly string;
   sort: number;
 }
