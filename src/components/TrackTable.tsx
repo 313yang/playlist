@@ -11,39 +11,37 @@ export default function TrackTable({ playlist }: { playlist: ITrack[] }) {
     handleAddOneTrack(track);
   };
   return (
-    <>
-      <TableStyle>
-        <thead>
-          <tr>
-            <th>Song</th>
-            <th>Artist</th>
-            <th>Album</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {playlist.map((track) => (
-            <TrStyle
-              currentTrack={
-                !!currentTrack && currentTrack.id === track.id && currentTrack.sort === track.sort
-              }
-              key={track.id}
-              onClick={() => handleSetTrack(track)}
-            >
-              <td>
-                <div className="currentTrack">
-                  <IoPlay />
-                </div>
-                <Image width={"40"} height={"40"} src={track.image} alt={track.title} />
-                {track.title}
-              </td>
-              <td>{track.artist}</td>
-              <td>{track.album}</td>
-              <td>{track.time}</td>
-            </TrStyle>
-          ))}
-        </tbody>
-      </TableStyle>
-    </>
+    <TableStyle>
+      <thead>
+        <tr>
+          <th>Song</th>
+          <th>Artist</th>
+          <th>Album</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {playlist.map((track) => (
+          <TrStyle
+            currentTrack={
+              !!currentTrack && currentTrack.id === track.id && currentTrack.sort === track.sort
+            }
+            key={track.id}
+            onClick={() => handleSetTrack(track)}
+          >
+            <td>
+              <div className="currentTrack">
+                <IoPlay />
+              </div>
+              <Image width={"40"} height={"40"} src={track.image} alt={track.title} />
+              {track.title}
+            </td>
+            <td>{track.artist}</td>
+            <td>{track.album}</td>
+            <td>{track.time}</td>
+          </TrStyle>
+        ))}
+      </tbody>
+    </TableStyle>
   );
 }
