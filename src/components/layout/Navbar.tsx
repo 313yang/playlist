@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState } from "react";
 import styled from "styled-components";
 import icon from "public/icon.svg";
 import Image from "next/image";
 import { useSidebar } from "@/util/store/usePlayerStore";
+import Searchbar from "../common/Searchbar";
 
 const routerArr = [
   { path: "/", title: "New" },
@@ -13,27 +12,14 @@ const routerArr = [
   { path: "/featured", title: "Featured" },
 ];
 export default function Navbar() {
-  const router = useRouter();
   const { navbarIsOpen } = useSidebar();
-  const [keyword, setKeyword] = useState("");
   return (
     <NavStyle isShow={navbarIsOpen}>
       <Link href={"/"}>
         <Image src={icon} width="20" height="20" alt="logo" />
         <h1>Soundy</h1>
       </Link>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          router.push(`/search/${keyword}`);
-        }}
-      >
-        <input
-          placeholder="search..."
-          onChange={(e) => setKeyword(e.target.value)}
-          value={keyword}
-        />
-      </form>
+      <Searchbar />
       <ul>
         {routerArr.map((list) => (
           <li key={list.title}>

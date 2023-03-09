@@ -33,7 +33,7 @@ export default function useInfinitiScroll(keyword: string, title?: string) {
     };
   };
   const { data, isLoading, fetchNextPage, isFetchingNextPage, error } = useInfiniteQuery(
-    !!title ? [title, keyword] : keyword,
+    keyword,
     fetchPage,
 
     {
