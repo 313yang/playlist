@@ -41,18 +41,22 @@ class MyDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
           <meta name="naver-site-verification" content="ba02d1f241b85b328285fa858eec8d21732f186a" />
         </Head>
-        {/* <!-- Google tag (gtag.js) --> */}
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-1LD7BTF3V9"></Script>
-        <Script
-          id="gtag-init"
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer = window.dataLayer || [];
+        <body>
+          {/* <!-- Google tag (gtag.js) --> */}
+          <Script async src="https://www.googletagmanager.com/gtag/js?id=G-1LD7BTF3V9"></Script>
+          <Script
+            id="gtag-init"
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-1LD7BTF3V9');`,
-          }}
-        ></Script>
-        <body>
+            }}
+          ></Script>
+          <Script
+            strategy="afterInteractive"
+            src="https://www.googletagmanager.com/gtag/js?id=G-1LD7BTF3V9"
+          ></Script>
           <Main />
           <NextScript />
         </body>
