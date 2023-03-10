@@ -37,9 +37,7 @@ export default function App({ Component, pageProps }: AppProps) {
     const handleRouteChange = (url: URL) => {
       ga.pageView(url);
     };
-
     router.events.on("routeChangeComplete", handleRouteChange);
-
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
