@@ -40,23 +40,25 @@ class MyDocument extends Document {
           <meta name="image" content="/favicon.ico" />
           <link rel="icon" href="/favicon.ico" />
           <meta name="naver-site-verification" content="ba02d1f241b85b328285fa858eec8d21732f186a" />
-        </Head>
-        <body>
-          {/* <!-- Google tag (gtag.js) --> */}
-          <Script async src="https://www.googletagmanager.com/gtag/js?id=G-1LD7BTF3V9"></Script>
-          <Script
-            id="gtag-init"
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID}`}
+          />
+          <script
             dangerouslySetInnerHTML={{
-              __html: `window.dataLayer = window.dataLayer || [];
+              __html: `
+            window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-1LD7BTF3V9');`,
+
+            gtag('config', '${process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
             }}
-          ></Script>
-          <Script
-            strategy="afterInteractive"
-            src="https://www.googletagmanager.com/gtag/js?id=G-1LD7BTF3V9"
-          ></Script>
+          />
+        </Head>
+        <body>
           <Main />
           <NextScript />
         </body>

@@ -29,6 +29,7 @@
     "zustand": "^4.3.2"
   },
   "devDependencies": {
+    "@types/gtag.js": "^0.0.12",
     "@types/react-query": "^1.2.9",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-styled-components": "^2.0.7"
