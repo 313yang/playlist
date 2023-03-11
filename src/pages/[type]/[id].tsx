@@ -1,5 +1,5 @@
 import TrackTable from "@/components/TrackTable";
-import { searchTrackById } from "@/lib/spotify";
+import { searchTrackById } from "@/api/spotify";
 import { FlatButton } from "@/styles/common/ButtonStyle";
 import { CurrentTrackContainer } from "@/styles/CurrentTrack";
 import { PlaylistContainer } from "@/styles/PlaylistStyle";

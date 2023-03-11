@@ -2,8 +2,7 @@ import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
 import styled from "styled-components";
 import { IoPause, IoPlay, IoPlayBack, IoPlayForward, IoRepeat, IoShuffle } from "react-icons/io5";
 import { useTrack, useTrackActions } from "@/util/store/useTrackStore";
-
-// const repeatTypeArr = ["none", "repeat", "loop"];
+import { MutableRefObject } from "react";
 
 export default function PlayerButtons({
   play,
@@ -11,8 +10,8 @@ export default function PlayerButtons({
   videoRef,
 }: {
   play: boolean;
-  setPlay: any;
-  videoRef: any;
+  setPlay: React.Dispatch<React.SetStateAction<boolean>>;
+  videoRef: MutableRefObject<any>;
 }) {
   const { handleNextTrack, handlePrevTrack, handleShuffleTracks } = useTrackActions();
   const { track, repeat } = useTrack();

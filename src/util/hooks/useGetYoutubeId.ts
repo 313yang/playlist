@@ -1,4 +1,4 @@
-import { findVideo } from "@/lib/youtube";
+import { findVideo } from "@/api/youtube";
 import { useQuery } from "react-query";
 import { useTrack } from "../store/useTrackStore";
 

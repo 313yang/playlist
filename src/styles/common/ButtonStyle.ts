@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-export const FlatButton = styled.button.attrs({ type: "button" })`
+export const Button = styled.button.attrs({ type: "button" })``;
+export const FlatButton = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: center;

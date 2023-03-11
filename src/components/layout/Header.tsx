@@ -5,6 +5,7 @@ import { useSidebar } from "@/util/store/usePlayerStore";
 import PlayerButtons from "../common/PlayerButtons";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
+import { Button } from "@/styles/common/ButtonStyle";
 
 const PlayerTrack = dynamic(() => import("../common/PlayerTrack"), { ssr: false });
 
@@ -12,19 +13,17 @@ export default function Header() {
   const { sidebarIsOpen, setSidebarsidebarIsOpen, navbarIsOpen, setNavbarsidebarIsOpen } =
     useSidebar();
   const [play, setPlay] = useState(false);
-  const videoRef = useRef<any>(null);
+  const videoRef = useRef(null);
 
   return (
     <HeaderStyle navbarIsOpen={navbarIsOpen} sidebarIsOpen={sidebarIsOpen}>
-      <button type="button" onClick={setNavbarsidebarIsOpen}>
-        {navbarIsOpen ? <IoClose /> : <IoMenu />}
-      </button>
+      <Button onClick={setNavbarsidebarIsOpen}>{navbarIsOpen ? <IoClose /> : <IoMenu />}</Button>
       <PlayerButtons videoRef={videoRef} play={play} setPlay={setPlay} />
       <PlayerTrack videoRef={videoRef} play={play} setPlay={setPlay} />
       <PlayerVolume />
-      <button type="button" onClick={setSidebarsidebarIsOpen}>
+      <Button onClick={setSidebarsidebarIsOpen}>
         <IoList />
-      </button>
+      </Button>
     </HeaderStyle>
   );
 }

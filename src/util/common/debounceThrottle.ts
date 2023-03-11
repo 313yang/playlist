@@ -8,12 +8,12 @@ export const debounced = (callback: () => void, delay = 1000) => {
 };
 
 let throttle = false;
-export const throttled = (fetchApi: () => void) => {
+export const throttled = (callback: () => void) => {
   if (throttle) return;
 
   throttle = true;
 
-  fetchApi();
+  callback();
   setTimeout(async () => {
     throttle = false;
   }, 1000);

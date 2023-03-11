@@ -1,5 +1,5 @@
 import KeywordContainer from "@/components/KeywordContainer";
-import { searchPlaylistKeyword } from "@/lib/spotify";
+import { searchPlaylistKeyword } from "@/api/spotify";
 import { PlaylistContainer } from "@/styles/PlaylistStyle";
 import { memo, useState } from "react";
 import { dehydrate, QueryClient } from "react-query";
