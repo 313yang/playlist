@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, Suspense, Fragment } from "react";
 import Spinner from "@/components/common/Spinner";
-import { getFeatured, getNewReleases, searchPlaylistKeyword } from "@/lib/spotify";
+import { getFeatured, getNewReleases, searchPlaylistKeyword } from "@/api/spotify";
 import { TrackListsStyle } from "@/styles/PlaylistStyle";
 import { toast } from "react-hot-toast";
 import { useInView } from "react-intersection-observer";
@@ -33,7 +33,7 @@ export default function useInfinitiScroll(keyword: string, title?: string) {
     };
   };
   const { data, isLoading, fetchNextPage, isFetchingNextPage, error } = useInfiniteQuery(
-    keyword,
+    !!title ? [title, keyword] : keyword,
     fetchPage,
 
     {

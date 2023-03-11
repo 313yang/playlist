@@ -1,6 +1,7 @@
-import { useTrack, useTrackActions } from "@/util/store/useTrackStore";
+import { useTrackActions } from "@/util/store/useTrackStore";
 import { IoPlay, IoRemoveCircleSharp } from "react-icons/io5";
 import Image from "next/image";
+import { Button } from "@/styles/common/ButtonStyle";
 
 export default function UpNextTrackRender({ track, index }: { track: ITrack; index: number }) {
   const { handleRemoveTrack } = useTrackActions();
@@ -10,9 +11,9 @@ export default function UpNextTrackRender({ track, index }: { track: ITrack; ind
   };
   return (
     <>
-      <button type="button" onClick={handleDeleteSelectedTrack}>
+      <Button onClick={handleDeleteSelectedTrack}>
         <IoRemoveCircleSharp />
-      </button>
+      </Button>
       <div className="currentTrack">
         <IoPlay />
       </div>

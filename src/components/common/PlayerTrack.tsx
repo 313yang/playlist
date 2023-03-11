@@ -4,7 +4,7 @@ import { useGetYoutubeId } from "@/util/hooks/useGetYoutubeId";
 import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
 import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { MutableRefObject, useState } from "react";
 import { RiPlayListFill } from "react-icons/ri";
 import ReactPlayer from "react-player";
 import styled from "styled-components";
@@ -16,8 +16,8 @@ export default function PlayerTrack({
   videoRef,
 }: {
   play: boolean;
-  setPlay: any;
-  videoRef: any;
+  setPlay: React.Dispatch<React.SetStateAction<boolean>>;
+  videoRef: MutableRefObject<any>;
 }) {
   const { track, repeat } = useTrack();
   const { handleNextTrack } = useTrackActions();

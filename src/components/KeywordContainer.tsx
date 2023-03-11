@@ -1,3 +1,4 @@
+import { Button } from "@/styles/common/ButtonStyle";
 import { contentWidth } from "@/styles/GlobalStyle";
 import styled from "styled-components";
 
@@ -13,9 +14,13 @@ export default function KeywordContainer({
   return (
     <Container>
       {keywords.map((keyword) => (
-        <Button selected={selected === keyword} onClick={() => handleSelect(keyword)} key={keyword}>
+        <StyleButton
+          selected={selected === keyword}
+          onClick={() => handleSelect(keyword)}
+          key={keyword}
+        >
           {keyword}
-        </Button>
+        </StyleButton>
       ))}
     </Container>
   );
@@ -36,7 +41,7 @@ const Container = styled.div`
     gap: 16px 0;
   }
 `;
-const Button = styled.button.attrs({ type: "button" })<{ selected: boolean }>`
+const StyleButton = styled(Button)<{ selected: boolean }>`
   font-size: 14px;
   height: 7.5px;
   display: flex;

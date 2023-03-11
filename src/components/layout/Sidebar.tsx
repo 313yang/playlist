@@ -1,3 +1,4 @@
+import { Button } from "@/styles/common/ButtonStyle";
 import { useSidebar } from "@/util/store/usePlayerStore";
 import { useTrackActions, useTrack } from "@/util/store/useTrackStore";
 import styled from "styled-components";
@@ -13,22 +14,17 @@ export default function Sidebar() {
     <SidebarStyle sidebarIsOpen={sidebarIsOpen}>
       <div>
         <h3>Up Next</h3>
-        <button type="button" onClick={handleRemoveTracks}>
+        <Button onClick={handleRemoveTracks}>
           <h4>Clear</h4>
-        </button>
+        </Button>
       </div>
       <ul>
         {tracks.map((track, index) => (
-          <UpNextTrackList
-            draggable={true}
-            track={track}
-            index={index}
-            key={track.id + track.sort + "I" + index}
-          >
+          <UpNextTrackList draggable={true} track={track} index={index} key={track.id + track.sort}>
             <UpNextTrackRender track={track} index={index} />
           </UpNextTrackList>
         ))}
-        <UpNextTrackList index={tracks.length} draggable={false}></UpNextTrackList>
+        <UpNextTrackList index={tracks.length} draggable={false} />
       </ul>
     </SidebarStyle>
   );

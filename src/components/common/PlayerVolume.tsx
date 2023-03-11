@@ -1,3 +1,4 @@
+import { Button } from "@/styles/common/ButtonStyle";
 import { usePlayer, usePlayerActions } from "@/util/store/usePlayerStore";
 import { useState } from "react";
 import { IoVolumeLow, IoVolumeMedium, IoVolumeMute } from "react-icons/io5";
@@ -21,11 +22,11 @@ export default function PlayerVolume() {
   };
   return (
     <VolumeWrap>
-      <button type="button" onClick={handleMute}>
+      <Button onClick={handleMute}>
         {volume > 0.5 && <IoVolumeMedium />}
         {volume > 0 && volume <= 0.5 && <IoVolumeLow />}
         {volume === 0 && <IoVolumeMute />}
-      </button>
+      </Button>
 
       <InputRange
         styles={{

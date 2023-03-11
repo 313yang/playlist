@@ -7,9 +7,6 @@ export default function TrackTable({ playlist }: { playlist: ITrack[] }) {
   const { track: currentTrack } = useTrack();
   const { handleAddOneTrack } = useTrackActions();
 
-  const handleSetTrack = (track: ITrack) => {
-    handleAddOneTrack(track);
-  };
   return (
     <TableStyle>
       <thead>
@@ -27,7 +24,7 @@ export default function TrackTable({ playlist }: { playlist: ITrack[] }) {
               !!currentTrack && currentTrack.id === track.id && currentTrack.sort === track.sort
             }
             key={track.id}
-            onClick={() => handleSetTrack(track)}
+            onClick={() => handleAddOneTrack(track)}
           >
             <td>
               <div className="currentTrack">
