@@ -1,11 +1,12 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { shuffleArray } from "../common/shuffleArray";
-import { usePlayer } from "./usePlayerStore";
+import { shallow } from "zustand/shallow";
 
 type Nullable<T> = T | null;
 
-interface IUseTrackStore {
+interface ITrackStore {
   tracks: ITrack[] | [];
   track: Nullable<ITrack>;
   trackNum: number;
@@ -23,7 +24,7 @@ interface IUseTrackStore {
   setRepeat: (repeatType: string) => void;
 }
 
-const useTrackStore = create<IUseTrackStore>()(
+const useTrackStore = create<ITrackStore>()(
   persist(
     (set) => ({
       tracks: [],
@@ -133,24 +134,30 @@ const useTrackStore = create<IUseTrackStore>()(
 );
 
 export const useTrack = () =>
-  useTrackStore((state) => ({
-    track: state.track,
-    tracks: state.tracks,
-    trackNum: state.trackNum,
-    repeat: state.repeat,
-  }));
+  useTrackStore(
+    (state) => ({
+      track: state.track,
+      tracks: state.tracks,
+      trackNum: state.trackNum,
+      repeat: state.repeat,
+    }),
+    shallow
+  );
 
 export const useTrackActions = () =>
-  useTrackStore((state) => ({
-    setTracks: state.setTracks,
-    handleNextTrack: state.handleNextTrack,
-    handlePrevTrack: state.handlePrevTrack,
-    handleAddOneTrack: state.handleAddOneTrack,
-    handleAddTracks: state.handleAddTracks,
-    handleRemoveTracks: state.handleRemoveTracks,
-    handlePlayTrack: state.handlePlayTrack,
-    handleShuffleTracks: state.handleShuffleTracks,
-    handlePlayTracks: state.handlePlayTracks,
-    handleRemoveTrack: state.handleRemoveTrack,
-    setRepeat: state.setRepeat,
-  }));
+  useTrackStore(
+    (state) => ({
+      setTracks: state.setTracks,
+      handleNextTrack: state.handleNextTrack,
+      handlePrevTrack: state.handlePrevTrack,
+      handleAddOneTrack: state.handleAddOneTrack,
+      handleAddTracks: state.handleAddTracks,
+      handleRemoveTracks: state.handleRemoveTracks,
+      handlePlayTrack: state.handlePlayTrack,
+      handleShuffleTracks: state.handleShuffleTracks,
+      handlePlayTracks: state.handlePlayTracks,
+      handleRemoveTrack: state.handleRemoveTrack,
+      setRepeat: state.setRepeat,
+    }),
+    shallow
+  );

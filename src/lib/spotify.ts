@@ -11,31 +11,12 @@ const config = (token: string) => {
     },
   };
 };
-type IPlaylistDefault = {
-  name: string;
-  id: string;
-  type: string;
-  album: {
-    album: string;
-    images: [{ url: string }];
-    name: string;
-  };
-  artists: [{ name: string }];
-  duration_ms: number;
-  images: [{ url: string }];
-  owner: {
-    display_name: string;
-  };
-  track_number: string;
-};
-type ITrackDefault = {
-  track: IPlaylistDefault;
 
-  added_at: string;
-};
+const api = axios.create({ baseURL: "/api", timeout: 5000 });
+
 export const getAccessToken = async () => {
-  const { data } = await axios.post(
-    "/api/token",
+  const { data } = await api.post(
+    "token",
     {
       grant_type: "client_credentials",
     },
@@ -53,7 +34,7 @@ export const getAccessToken = async () => {
 export const getNewReleases = async () => {
   const token = await getAccessToken();
 
-  const getReleaseList = (await axios.get(`/api/new-releases`, config(token))).data.albums.items;
+  const getReleaseList = (await api.get(`new-releases`, config(token))).data.albums.items;
 
   const result = getReleaseList.map((list: IPlaylistDefault) => ({
     image: list.images[0].url,
@@ -67,8 +48,8 @@ export const getNewReleases = async () => {
 export const getFeatured = async (offset: number) => {
   const token = await getAccessToken();
 
-  const getReleaseList = (await axios.get(`/api/featured/${offset * 50}`, config(token))).data
-    .playlists.items;
+  const getReleaseList = (await api.get(`featured/${offset * 50}`, config(token))).data.playlists
+    .items;
 
   const result = getReleaseList
     // .filter((track: IPlaylistDefault) => track.images.length > 0)
@@ -86,8 +67,8 @@ export const searchTrackById = async (id: string, searchType: string) => {
   try {
     const token = await getAccessToken();
 
-    const { data } = await axios.get(
-      `/api/${searchType}/${id}${searchType === "playlist" ? "/0" : ""}`,
+    const { data } = await api.get(
+      `${searchType}/${id}${searchType === "playlist" ? "/0" : ""}`,
       config(token)
     );
 
@@ -106,8 +87,8 @@ export const searchTrackById = async (id: string, searchType: string) => {
       const totalArr = [...data.items];
 
       for (let i = 1; i < total / 100; i++) {
-        const getTracks = (await axios.get(`/api/${searchType}/${id}/${i * 100}`, config(token)))
-          .data.items;
+        const getTracks = (await api.get(`${searchType}/${id}/${i * 100}`, config(token))).data
+          .items;
         totalArr.push(...getTracks);
       }
 
@@ -135,8 +116,8 @@ export const searchPlaylistKeyword = async (keyword: string, offset: number) => 
   try {
     const token = await getAccessToken();
 
-    const getPlaylist = (await axios.get(`/api/search/${keyword}/${offset * 50}`, config(token)))
-      .data.playlists.items;
+    const getPlaylist = (await api.get(`search/${keyword}/${offset * 50}`, config(token))).data
+      .playlists.items;
 
     const result = getPlaylist
       .filter((track: IPlaylistDefault) => track.images.length > 0)
