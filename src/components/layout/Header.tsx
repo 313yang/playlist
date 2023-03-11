@@ -54,7 +54,7 @@ const HeaderStyle = styled.header<{ sidebarIsOpen: boolean; navbarIsOpen: boolea
       color: ${({ sidebarIsOpen, theme }) => (sidebarIsOpen ? theme.colors.main : "#fff")};
     }
   }
-  @media screen and (max-width: 1025px) {
+  ${({ theme }) => theme.device.tablet} {
     justify-content: space-between;
     padding: 0 20px;
     > button {
@@ -68,7 +68,7 @@ const HeaderStyle = styled.header<{ sidebarIsOpen: boolean; navbarIsOpen: boolea
       }
     }
   }
-  @media screen and (max-width: 500px) {
+  ${({ theme }) => theme.device.mobile} {
     padding: 0 10px;
   }
 `;

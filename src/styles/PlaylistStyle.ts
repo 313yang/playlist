@@ -18,7 +18,7 @@ export const PlaylistContainer = styled.main`
     ${contentWidth};
     font-size: 12px;
   }
-  @media screen and (max-width: 1025px) {
+  ${({ theme }) => theme.device.tablet} {
     width: 100%;
     padding-left: 0;
     > h1,
@@ -33,7 +33,7 @@ export const TrackListsStyle = styled.ul`
   gap: 40px 12px;
   ${contentWidth};
   margin-bottom: 20px;
-  @media screen and (max-width: 1025px) {
+  ${({ theme }) => theme.device.tablet} {
     display: flex;
     flex-wrap: wrap;
     flex-grow: inherit;
@@ -82,7 +82,7 @@ export const TrackStyle = styled.li`
       opacity: 1;
     }
   }
-  @media screen and (max-width: 1025px) {
+  ${({ theme }) => theme.device.tablet} {
     flex-grow: 1;
     max-width: 230px;
     > img {
@@ -92,7 +92,7 @@ export const TrackStyle = styled.li`
       max-width: 230px;
     }
   }
-  @media screen and (max-width: 500px) {
+  ${({ theme }) => theme.device.mobile} {
     max-width: 160px;
     > img {
       height: 160px;

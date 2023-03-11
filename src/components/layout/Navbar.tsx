@@ -81,7 +81,7 @@ const NavStyle = styled.nav<{ isShow: boolean }>`
       }
     }
   }
-  @media screen and (max-width: 1025px) {
+  ${({ theme }) => theme.device.tablet} {
     top: 50px;
     height: calc(100vh - 50px);
     left: ${({ isShow }) => (isShow ? 0 : "-220px")};

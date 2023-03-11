@@ -34,7 +34,7 @@ const Container = styled.div`
   margin: 30px auto;
   border: 0.5px solid rgba(255, 255, 255, 0.6);
   border-radius: 2px;
-  @media screen and (max-width: 1025px) {
+  ${({ theme }) => theme.device.tablet} {
     width: 90%;
     flex-wrap: wrap;
     height: fit-content;

@@ -154,7 +154,7 @@ const PlayerTrackWrap = styled.div`
       }
     }
   }
-  @media screen and (max-width: 1025px) {
+  ${({ theme }) => theme.device.tablet} {
     > div {
       > div {
         > h6 {
@@ -165,7 +165,7 @@ const PlayerTrackWrap = styled.div`
       }
     }
   }
-  @media screen and (max-width: 500px) {
+  ${({ theme }) => theme.device.mobile} {
     width: 70vw;
     > div {
       > div {

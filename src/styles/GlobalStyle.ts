@@ -114,7 +114,7 @@ input,select{
 	color:inherit
 }
 
-@media screen and (max-width:480px){
+${({ theme }) => theme.device.mobile} {
 	body{
 		font-size: 14px;
 	}

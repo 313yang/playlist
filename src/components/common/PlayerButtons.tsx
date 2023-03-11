@@ -84,7 +84,7 @@ const Buttons = styled.div`
       }
     }
   }
-  @media screen and (max-width: 1025px) {
+  ${({ theme }) => theme.device.tablet} {
     position: absolute;
     left: 50%;
     top: 48%;
@@ -103,7 +103,7 @@ const Buttons = styled.div`
       }
     }
   }
-  @media screen and (max-width: 1025px) {
+  ${({ theme }) => theme.device.tablet} {
     margin-left: 61%;
     left: 0;
     transform: translate(0, -50%);

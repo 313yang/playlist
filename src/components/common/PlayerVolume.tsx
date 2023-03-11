@@ -68,7 +68,7 @@ const VolumeWrap = styled.div`
       border-radius: 50%;
     }
   }
-  @media screen and (max-width: 1025px) {
+  ${({ theme }) => theme.device.tablet} {
     display: none !important;
   }
 `;

@@ -33,10 +33,10 @@ export const CurrentTrackContainer = styled.div`
       }
     }
   }
-  @media screen and (max-width: 1025px) {
+  ${({ theme }) => theme.device.tablet} {
     width: 90%;
   }
-  @media screen and (max-width: 700px) {
+  ${({ theme }) => theme.device.mobile} {
     flex-direction: column;
     align-items: center;
     > img {

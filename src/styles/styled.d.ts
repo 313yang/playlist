@@ -4,7 +4,6 @@ declare module "styled-components" {
   export interface DefaultTheme {
     colors: {
       bgColor: string;
-
       lightGray: string;
       gray: string;
       darkGray: string;
@@ -14,7 +13,6 @@ declare module "styled-components" {
     device: {
       mobile: string;
       tablet: string;
-      tabletL: string;
     };
   }
 }

@@ -9,8 +9,7 @@ const colors = {
 
 const device = {
   mobile: `@media screen and (max-width: 500px)`,
-  tablet: `@media screen and (max-width:768px)`,
-  tabletL: `@media screen and (max-width: 1024px)`,
+  tablet: `@media screen and (max-width: 1025px)`,
 };
 
 const theme = {

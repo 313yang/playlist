@@ -18,7 +18,7 @@ export const TableStyle = styled.table`
       border-radius: 2px;
     }
   }
-  @media screen and (max-width: 1025px) {
+  ${({ theme }) => theme.device.tablet} {
     width: 90%;
 
     tr {
